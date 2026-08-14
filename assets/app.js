@@ -7,7 +7,8 @@
   [
     ['assets/thesis-v3.css', 'thesis-v3-stylesheet'],
     ['assets/design-v4.css', 'design-v4-stylesheet'],
-    ['assets/polish-v5.css', 'polish-v5-stylesheet']
+    ['assets/polish-v5.css', 'polish-v5-stylesheet'],
+    ['assets/polish-v6.css', 'polish-v6-stylesheet']
   ].forEach(([href, id]) => {
     if (!document.getElementById(id)) {
       const link = document.createElement('link');
@@ -25,6 +26,7 @@
   const mobileNav = document.getElementById('mobileNav');
   const toast = document.getElementById('toast');
   const copyBibtex = document.getElementById('copyBibtex');
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
   /* ----------------------------------------------------------
      Theme
@@ -187,68 +189,121 @@
   }
 
   /* ----------------------------------------------------------
-     DTW rehabilitation paper visual
+     DTW rehabilitation paper — research-figure treatment
   ---------------------------------------------------------- */
   const dtwHeading = [...document.querySelectorAll('.project-card h3')]
-    .find((heading) => heading.textContent.trim() === 'Physical Disability Rehabilitation Evaluation using DTW' || heading.textContent.trim() === 'Performance Evaluation for Physical Disability Rehabilitation Process Using DTW');
+    .find((heading) => {
+      const text = heading.textContent.trim();
+      return text === 'Physical Disability Rehabilitation Evaluation using DTW' ||
+             text === 'Performance Evaluation for Physical Disability Rehabilitation Process Using DTW';
+    });
   const dtwCard = dtwHeading?.closest('.project-card');
 
   if (dtwHeading) {
     dtwHeading.textContent = 'Performance Evaluation for Physical Disability Rehabilitation Process Using DTW';
   }
 
-  if (dtwCard && !dtwCard.querySelector('.dtw-paper-visual')) {
-    const description = dtwHeading.parentElement?.querySelector('p');
+  if (dtwCard) {
+    dtwCard.querySelector('.dtw-paper-visual')?.remove();
+
+    const description = dtwHeading?.parentElement?.querySelector('p');
     if (description) {
-      description.textContent = 'Used Kinect V2 motion sensing and multidimensional Dynamic Time Warping to compare patient exercise sequences with physiotherapist reference movements, producing similarity scores that can support rehabilitation feedback and performance assessment.';
+      description.textContent = 'Used Kinect V2 motion sensing and multidimensional Dynamic Time Warping to compare patient exercise sequences with physiotherapist reference movements, producing similarity scores for rehabilitation performance assessment.';
     }
 
-    const tags = dtwHeading.parentElement?.querySelector('.tag-row');
+    const tags = dtwHeading?.parentElement?.querySelector('.tag-row');
     if (tags) {
       tags.innerHTML = '<span>Dynamic Time Warping</span><span>Kinect V2</span><span>3D joint data</span><span>Rehabilitation</span>';
     }
 
-    const visual = document.createElement('div');
-    visual.className = 'dtw-paper-visual';
-    visual.innerHTML = `
-      <div class="dtw-visual-copy">
-        <span class="dtw-visual-label">Research paper · Rehabilitation analytics</span>
-        <strong>Motion becomes a time series — DTW aligns the performance with the reference.</strong>
-        <p>The study uses Kinect V2 joint trajectories to compare exercises that may be performed at different speeds, which is exactly where temporal alignment matters.</p>
-        <a class="dtw-paper-link" href="https://drive.google.com/file/d/1rttfWGXSKGSkScGVgmhZBaLeX-CJCNPP/view?usp=sharing" target="_blank" rel="noopener">Read the paper ↗</a>
-      </div>
-      <svg class="dtw-motion-mark" viewBox="0 0 520 280" role="img" aria-label="Stylized rehabilitation motion and dynamic time warping visual">
-        <g opacity=".55">
-          <path class="dtw-grid" d="M12 54H508M12 108H508M12 162H508M12 216H508" />
-          <path class="dtw-grid" d="M82 18V260M166 18V260M250 18V260M334 18V260M418 18V260" />
-        </g>
-        <g transform="translate(57 28)">
-          <circle class="dtw-person" cx="67" cy="27" r="19" />
-          <path class="dtw-person" d="M67 48V112M67 69L27 100M67 70L108 47M67 112L40 178M67 112L88 179" />
-          <circle cx="67" cy="69" r="5" fill="#2563eb"/>
-          <circle cx="27" cy="100" r="5" fill="#2563eb"/>
-          <circle cx="108" cy="47" r="5" fill="#0f9f98"/>
-          <circle cx="40" cy="178" r="5" fill="#2563eb"/>
-          <circle cx="88" cy="179" r="5" fill="#0f9f98"/>
-        </g>
-        <g transform="translate(216 42)">
-          <path class="dtw-wave-c" d="M0 120C35 75 54 167 91 112S153 70 190 122S242 164 284 102"/>
-          <path class="dtw-wave-a" d="M0 104C34 54 57 151 92 92S153 52 190 106S243 148 284 83"/>
-          <path class="dtw-wave-b" d="M0 140C31 101 57 179 94 127S154 90 191 140S243 179 284 121"/>
-          <path d="M19 157C61 174 100 172 142 154S229 125 267 139" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 7" opacity=".34"/>
-          <text x="2" y="202" fill="currentColor" opacity=".5" font-size="11" font-family="Segoe UI, sans-serif">reference</text>
-          <text x="217" y="202" fill="currentColor" opacity=".5" font-size="11" font-family="Segoe UI, sans-serif">aligned motion</text>
-        </g>
-      </svg>
-    `;
-    dtwCard.appendChild(visual);
+    if (!dtwCard.querySelector('.dtw-paper-artifact')) {
+      const artifact = document.createElement('div');
+      artifact.className = 'dtw-paper-artifact';
+      artifact.innerHTML = `
+        <div class="dtw-joint-figure" aria-label="Stylized Kinect body-joint map inspired by the rehabilitation study">
+          <svg viewBox="0 0 520 260" role="img" aria-label="Human body with Kinect-style tracked joints and numbered callouts">
+            <text x="14" y="20" class="dtw-figure-label">KINECT V2 · BODY JOINT MAP</text>
+
+            <!-- soft body silhouette -->
+            <circle cx="262" cy="45" r="24" class="dtw-body-fill"/>
+            <path d="M245 67 Q262 57 279 67 L292 130 Q296 157 287 190 L281 237 L263 237 L257 157 L252 237 L234 237 L230 188 Q221 157 232 129 Z" class="dtw-body-fill"/>
+            <path d="M235 82 L201 113 L192 168" class="dtw-body-line"/>
+            <path d="M287 82 L322 112 L331 168" class="dtw-body-line"/>
+
+            <!-- tracked skeleton -->
+            <path class="dtw-skeleton" d="M262 44 L262 68 L262 87 L262 111 L262 139 L240 139 L233 169 L238 221"/>
+            <path class="dtw-skeleton" d="M262 139 L284 139 L291 169 L286 221"/>
+            <path class="dtw-skeleton" d="M262 87 L229 91 L209 112 L202 153 L196 177"/>
+            <path class="dtw-skeleton" d="M262 87 L295 91 L315 112 L323 153 L330 177"/>
+            <path class="dtw-skeleton" d="M196 177 L188 186 L194 193 L201 184"/>
+            <path class="dtw-skeleton" d="M330 177 L338 186 L332 193 L325 184"/>
+
+            <!-- joints -->
+            <g>
+              <circle cx="262" cy="44" r="5.2" class="dtw-joint"/>
+              <circle cx="262" cy="68" r="4.2" class="dtw-joint"/>
+              <circle cx="262" cy="87" r="4.2" class="dtw-joint"/>
+              <circle cx="262" cy="111" r="4.2" class="dtw-joint"/>
+              <circle cx="262" cy="139" r="4.5" class="dtw-joint"/>
+              <circle cx="229" cy="91" r="4.2" class="dtw-joint"/>
+              <circle cx="209" cy="112" r="4.2" class="dtw-joint"/>
+              <circle cx="202" cy="153" r="4.2" class="dtw-joint"/>
+              <circle cx="196" cy="177" r="4.2" class="dtw-joint"/>
+              <circle cx="295" cy="91" r="4.2" class="dtw-joint"/>
+              <circle cx="315" cy="112" r="4.2" class="dtw-joint"/>
+              <circle cx="323" cy="153" r="4.2" class="dtw-joint"/>
+              <circle cx="330" cy="177" r="4.2" class="dtw-joint"/>
+              <circle cx="240" cy="139" r="4.2" class="dtw-joint"/>
+              <circle cx="233" cy="169" r="4.2" class="dtw-joint"/>
+              <circle cx="238" cy="221" r="4.2" class="dtw-joint"/>
+              <circle cx="284" cy="139" r="4.2" class="dtw-joint"/>
+              <circle cx="291" cy="169" r="4.2" class="dtw-joint"/>
+              <circle cx="286" cy="221" r="4.2" class="dtw-joint"/>
+              <circle cx="188" cy="186" r="3.7" class="dtw-joint"/>
+              <circle cx="194" cy="193" r="3.7" class="dtw-joint"/>
+              <circle cx="201" cy="184" r="3.7" class="dtw-joint"/>
+              <circle cx="338" cy="186" r="3.7" class="dtw-joint"/>
+              <circle cx="332" cy="193" r="3.7" class="dtw-joint"/>
+              <circle cx="325" cy="184" r="3.7" class="dtw-joint"/>
+            </g>
+
+            <!-- left callouts -->
+            <path class="dtw-callout" d="M246 44 L214 28 L126 28"/><text x="109" y="32" class="dtw-number">3</text>
+            <path class="dtw-callout" d="M253 68 L218 59 L112 59"/><text x="91" y="63" class="dtw-number">20</text>
+            <path class="dtw-callout" d="M229 91 L191 91 L119 91"/><text x="102" y="95" class="dtw-number">8</text>
+            <path class="dtw-callout" d="M202 153 L164 153 L86 153"/><text x="69" y="157" class="dtw-number">9</text>
+            <path class="dtw-callout" d="M196 177 L158 177 L91 177"/><text x="66" y="181" class="dtw-number">10</text>
+            <path class="dtw-callout" d="M188 186 L145 199 L67 199"/><text x="45" y="203" class="dtw-number">11</text>
+            <path class="dtw-callout" d="M233 169 L183 222 L106 222"/><text x="86" y="226" class="dtw-number">17</text>
+
+            <!-- right callouts -->
+            <path class="dtw-callout" d="M271 68 L305 69 L396 69"/><text x="407" y="73" class="dtw-number">2</text>
+            <path class="dtw-callout" d="M295 91 L337 91 L423 91"/><text x="434" y="95" class="dtw-number">4</text>
+            <path class="dtw-callout" d="M315 112 L353 122 L435 122"/><text x="446" y="126" class="dtw-number">5</text>
+            <path class="dtw-callout" d="M323 153 L365 153 L440 153"/><text x="451" y="157" class="dtw-number">6</text>
+            <path class="dtw-callout" d="M338 186 L378 186 L455 186"/><text x="466" y="190" class="dtw-number">7</text>
+            <path class="dtw-callout" d="M291 169 L340 216 L420 216"/><text x="431" y="220" class="dtw-number">13</text>
+            <path class="dtw-callout" d="M286 221 L338 239 L405 239"/><text x="416" y="243" class="dtw-number">14</text>
+          </svg>
+        </div>
+        <div class="dtw-artifact-copy">
+          <span class="dtw-artifact-eyebrow">Research paper · Rehabilitation analytics</span>
+          <h4>From tracked joints to a clinically useful similarity score.</h4>
+          <p>Kinect V2 records body-joint trajectories as time series. Multidimensional DTW then aligns a patient's motion with the physiotherapist's reference even when the same exercise is performed at a different speed.</p>
+          <div class="dtw-flow" aria-label="DTW research workflow">
+            <span>25 joints</span><b>→</b><span>trajectory</span><b>→</b><span>DTW alignment</span><b>→</b><span>similarity score</span>
+          </div>
+          <a class="dtw-paper-link" href="https://drive.google.com/file/d/1rttfWGXSKGSkScGVgmhZBaLeX-CJCNPP/view?usp=sharing" target="_blank" rel="noopener">Read the paper ↗</a>
+        </div>
+      `;
+      dtwCard.appendChild(artifact);
+    }
   }
 
   /* ----------------------------------------------------------
      Entrance animations
   ---------------------------------------------------------- */
   const revealItems = document.querySelectorAll('.reveal');
-  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
   if ('IntersectionObserver' in window && !reduceMotion) {
     const revealObserver = new IntersectionObserver((entries) => {
@@ -331,6 +386,23 @@
   }
 
   /* ----------------------------------------------------------
+     Back to top — force actual page-top behavior
+  ---------------------------------------------------------- */
+  document.querySelectorAll('a[href="#top"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: reduceMotion ? 'auto' : 'smooth'
+      });
+      if (history.replaceState) {
+        history.replaceState(null, '', `${location.pathname}${location.search}`);
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------
      Publication citation
   ---------------------------------------------------------- */
   const bibtex = `@inproceedings{almahim2024airquality,
@@ -353,8 +425,10 @@
   });
 
   /* ----------------------------------------------------------
-     Footer + external-link accessibility
+     Footer cleanup + external-link accessibility
   ---------------------------------------------------------- */
+  document.querySelector('.site-footer .footer-note')?.remove();
+
   const footerIdentity = document.querySelector('.site-footer .footer-grid > div:first-child');
   if (footerIdentity && !footerIdentity.querySelector('.footer-copyright')) {
     const copyright = document.createElement('small');
