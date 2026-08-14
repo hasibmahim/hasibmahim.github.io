@@ -1,9 +1,13 @@
 (() => {
-  // Load layered design styles. The newest layer refines the entire site while preserving
-  // the stable base stylesheet and thesis-specific component rules.
+  'use strict';
+
+  /* ----------------------------------------------------------
+     Layered styles
+  ---------------------------------------------------------- */
   [
     ['assets/thesis-v3.css', 'thesis-v3-stylesheet'],
-    ['assets/design-v4.css', 'design-v4-stylesheet']
+    ['assets/design-v4.css', 'design-v4-stylesheet'],
+    ['assets/polish-v5.css', 'polish-v5-stylesheet']
   ].forEach(([href, id]) => {
     if (!document.getElementById(id)) {
       const link = document.createElement('link');
@@ -14,29 +18,81 @@
     }
   });
 
-  // Add the requested links to the thesis metadata cards.
+  const root = document.documentElement;
+  const header = document.querySelector('.site-header');
+  const themeToggle = document.getElementById('themeToggle');
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  const toast = document.getElementById('toast');
+  const copyBibtex = document.getElementById('copyBibtex');
+
+  /* ----------------------------------------------------------
+     Theme
+  ---------------------------------------------------------- */
+  const storedTheme = localStorage.getItem('syed-mahim-theme');
+  const systemDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = storedTheme || (systemDark ? 'dark' : 'light');
+
+  const updateThemeLabel = () => {
+    if (!themeToggle) return;
+    const isDark = root.dataset.theme === 'dark';
+    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    themeToggle.dataset.themeLabel = label;
+    themeToggle.setAttribute('aria-label', label);
+    themeToggle.title = label;
+  };
+
+  updateThemeLabel();
+
+  themeToggle?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('syed-mahim-theme', next);
+    updateThemeLabel();
+  });
+
+  /* ----------------------------------------------------------
+     Mobile navigation
+  ---------------------------------------------------------- */
+  menuToggle?.addEventListener('click', () => {
+    const open = mobileNav?.classList.toggle('open') ?? false;
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+
+  mobileNav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      menuToggle?.setAttribute('aria-label', 'Open menu');
+    });
+  });
+
+  /* ----------------------------------------------------------
+     Thesis metadata links
+  ---------------------------------------------------------- */
   if (!document.getElementById('thesis-meta-link-styles')) {
-    const linkStyles = document.createElement('style');
-    linkStyles.id = 'thesis-meta-link-styles';
-    linkStyles.textContent = `
+    const style = document.createElement('style');
+    style.id = 'thesis-meta-link-styles';
+    style.textContent = `
       .thesis-meta a { color: inherit; text-decoration: none; }
       .thesis-meta a strong { transition: color .18s ease; }
       .thesis-meta a:hover strong,
       .thesis-meta a:focus-visible strong { color: var(--accent); }
       .thesis-meta a strong::after { content: ' ↗'; color: var(--accent); font-size: .78em; }
     `;
-    document.head.appendChild(linkStyles);
+    document.head.appendChild(style);
   }
 
   const thesisLinks = {
-    'Institution': 'https://www.oulu.fi/fi',
-    'Dataset': 'https://gitlab.com/felix134/connected-recipe-data-set'
+    Institution: 'https://www.oulu.fi/fi',
+    Dataset: 'https://gitlab.com/felix134/connected-recipe-data-set'
   };
 
   document.querySelectorAll('.thesis-meta > div').forEach((card) => {
     const label = card.querySelector('span')?.textContent.trim();
     const strong = card.querySelector('strong');
-    if (!label || !strong || strong.closest('a')) return;
+    if (!label || !strong || strong.dataset.linksApplied === 'true') return;
 
     if (thesisLinks[label]) {
       const link = document.createElement('a');
@@ -45,16 +101,16 @@
       link.rel = 'noopener';
       strong.replaceWith(link);
       link.appendChild(strong);
+      strong.dataset.linksApplied = 'true';
       return;
     }
 
     if (label === 'Supervisors') {
-      const supervisorLinks = [
+      strong.textContent = '';
+      [
         ['Prof. Mourad Oussalah', 'https://www.researchgate.net/profile/Mourad-Oussalah-2'],
         ['Dr. Mehrdad Rostami', 'https://www.researchgate.net/profile/Mehrdad-Rostami-4']
-      ];
-      strong.textContent = '';
-      supervisorLinks.forEach(([name, href], index) => {
+      ].forEach(([name, href], index) => {
         const link = document.createElement('a');
         link.href = href;
         link.target = '_blank';
@@ -66,14 +122,17 @@
         if (index === 0) strong.appendChild(document.createTextNode(' · '));
       });
       strong.style.display = 'block';
+      strong.dataset.linksApplied = 'true';
     }
   });
 
-  // Embed the supplied SSL-DF Figma research outline inside the 2023 deepfake project.
+  /* ----------------------------------------------------------
+     SSL-DF research outline
+  ---------------------------------------------------------- */
   if (!document.getElementById('ssl-df-project-styles')) {
-    const figmaStyles = document.createElement('style');
-    figmaStyles.id = 'ssl-df-project-styles';
-    figmaStyles.textContent = `
+    const style = document.createElement('style');
+    style.id = 'ssl-df-project-styles';
+    style.textContent = `
       .ssl-df-outline { margin: 28px 0 0; padding-top: 24px; border-top: 1px solid var(--line); }
       .ssl-df-outline-frame { position: relative; width: 100%; height: clamp(500px, 62vw, 760px); overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: 0 14px 34px rgba(9,24,48,.07); }
       .ssl-df-outline-frame iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
@@ -86,7 +145,7 @@
       @media (max-width: 780px) { .ssl-df-outline-frame { height: 520px; border-radius: 14px; } .ssl-df-outline-caption { grid-template-columns: 1fr; gap: 10px; align-items: start; } }
       @media (max-width: 520px) { .ssl-df-outline-frame { height: 430px; } }
     `;
-    document.head.appendChild(figmaStyles);
+    document.head.appendChild(style);
   }
 
   const deepfakeHeading = [...document.querySelectorAll('.project-card h3')]
@@ -127,16 +186,18 @@
     deepfakeCard.appendChild(figure);
   }
 
-  // Give the DTW rehabilitation paper its own visual identity: a body-motion silhouette
-  // plus warped time-series paths. The visual is intentionally schematic rather than
-  // copying a figure from the paper.
+  /* ----------------------------------------------------------
+     DTW rehabilitation paper visual
+  ---------------------------------------------------------- */
   const dtwHeading = [...document.querySelectorAll('.project-card h3')]
-    .find((heading) => heading.textContent.trim() === 'Physical Disability Rehabilitation Evaluation using DTW');
+    .find((heading) => heading.textContent.trim() === 'Physical Disability Rehabilitation Evaluation using DTW' || heading.textContent.trim() === 'Performance Evaluation for Physical Disability Rehabilitation Process Using DTW');
   const dtwCard = dtwHeading?.closest('.project-card');
 
-  if (dtwCard && !dtwCard.querySelector('.dtw-paper-visual')) {
+  if (dtwHeading) {
     dtwHeading.textContent = 'Performance Evaluation for Physical Disability Rehabilitation Process Using DTW';
+  }
 
+  if (dtwCard && !dtwCard.querySelector('.dtw-paper-visual')) {
     const description = dtwHeading.parentElement?.querySelector('p');
     if (description) {
       description.textContent = 'Used Kinect V2 motion sensing and multidimensional Dynamic Time Warping to compare patient exercise sequences with physiotherapist reference movements, producing similarity scores that can support rehabilitation feedback and performance assessment.';
@@ -183,69 +244,95 @@
     dtwCard.appendChild(visual);
   }
 
-  const root = document.documentElement;
-  const themeToggle = document.getElementById('themeToggle');
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileNav = document.getElementById('mobileNav');
-  const toast = document.getElementById('toast');
-  const copyBibtex = document.getElementById('copyBibtex');
+  /* ----------------------------------------------------------
+     Entrance animations
+  ---------------------------------------------------------- */
+  const revealItems = document.querySelectorAll('.reveal');
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-  // Theme: respect saved preference; otherwise use system preference.
-  const storedTheme = localStorage.getItem('syed-mahim-theme');
-  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  root.dataset.theme = storedTheme || (systemDark ? 'dark' : 'light');
-
-  themeToggle?.addEventListener('click', () => {
-    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    localStorage.setItem('syed-mahim-theme', next);
-  });
-
-  // Mobile navigation.
-  menuToggle?.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
-    menuToggle.setAttribute('aria-expanded', String(open));
-    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  });
-  mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    mobileNav.classList.remove('open');
-    menuToggle?.setAttribute('aria-expanded', 'false');
-  }));
-
-  // Entrance animation.
-  const items = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const observer = new IntersectionObserver((entries) => {
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-    items.forEach((item, i) => {
-      item.style.transitionDelay = `${Math.min((i % 4) * 55, 165)}ms`;
-      observer.observe(item);
+
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min((index % 4) * 55, 165)}ms`;
+      revealObserver.observe(item);
     });
   } else {
-    items.forEach(item => item.classList.add('visible'));
+    revealItems.forEach((item) => item.classList.add('visible'));
   }
 
-  // Slight parallax on the research constellation for pointer devices.
+  /* ----------------------------------------------------------
+     Constellation parallax
+  ---------------------------------------------------------- */
   const orbit = document.querySelector('.research-orbit');
   const constellation = document.getElementById('constellation');
-  if (orbit && constellation && window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    orbit.addEventListener('pointermove', (e) => {
-      const r = orbit.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top) / r.height - .5;
-      constellation.style.transform = `translate(${x * 8}px, ${y * 8}px)`;
+  const finePointer = window.matchMedia?.('(pointer:fine)').matches;
+
+  if (orbit && constellation && finePointer && !reduceMotion) {
+    orbit.addEventListener('pointermove', (event) => {
+      const rect = orbit.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      constellation.style.transform = `translate(${x * 7}px, ${y * 7}px)`;
     });
-    orbit.addEventListener('pointerleave', () => constellation.style.transform = 'translate(0,0)');
+    orbit.addEventListener('pointerleave', () => {
+      constellation.style.transform = 'translate(0,0)';
+    });
     constellation.style.transition = 'transform 180ms ease-out';
   }
 
-  // Copy publication citation.
+  /* ----------------------------------------------------------
+     Header state, progress, active section
+  ---------------------------------------------------------- */
+  const navLinks = [...document.querySelectorAll('.desktop-nav a[href^="#"], .mobile-nav a[href^="#"]')];
+  const sections = [...document.querySelectorAll('main section[id]')];
+
+  const updateScrollUI = () => {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    header?.classList.toggle('is-scrolled', y > 10);
+
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const progress = Math.min(1, Math.max(0, y / max));
+    header?.style.setProperty('--page-progress', progress.toFixed(4));
+  };
+
+  updateScrollUI();
+  window.addEventListener('scroll', updateScrollUI, { passive: true });
+  window.addEventListener('resize', updateScrollUI, { passive: true });
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const activeObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible?.target?.id) return;
+      const hash = `#${visible.target.id}`;
+
+      navLinks.forEach((link) => {
+        const active = link.getAttribute('href') === hash;
+        link.classList.toggle('active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }, {
+      rootMargin: '-27% 0px -58% 0px',
+      threshold: [0, .12, .3, .55]
+    });
+
+    sections.forEach((section) => activeObserver.observe(section));
+  }
+
+  /* ----------------------------------------------------------
+     Publication citation
+  ---------------------------------------------------------- */
   const bibtex = `@inproceedings{almahim2024airquality,
   author    = {Al Mahim, Syed Amin and Monir, M. Fahad and Chowdhury, A. H. and Amin, M. Ashraful},
   title     = {Towards A Low-Cost Air Quality Monitoring System in Mega-Cities: Design and Deployment},
@@ -257,11 +344,29 @@
   copyBibtex?.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(bibtex);
-      toast.textContent = 'BibTeX copied';
+      if (toast) toast.textContent = 'BibTeX copied';
     } catch {
-      toast.textContent = 'Could not access clipboard';
+      if (toast) toast.textContent = 'Could not access clipboard';
     }
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1800);
+    toast?.classList.add('show');
+    setTimeout(() => toast?.classList.remove('show'), 1800);
+  });
+
+  /* ----------------------------------------------------------
+     Footer + external-link accessibility
+  ---------------------------------------------------------- */
+  const footerIdentity = document.querySelector('.site-footer .footer-grid > div:first-child');
+  if (footerIdentity && !footerIdentity.querySelector('.footer-copyright')) {
+    const copyright = document.createElement('small');
+    copyright.className = 'footer-copyright';
+    copyright.textContent = `© ${new Date().getFullYear()} Syed Amin Al Mahim`;
+    footerIdentity.appendChild(copyright);
+  }
+
+  document.querySelectorAll('a[target="_blank"]').forEach((link) => {
+    if (!link.getAttribute('aria-label')) {
+      const text = link.textContent.trim();
+      if (text) link.setAttribute('aria-label', `${text} (opens in a new tab)`);
+    }
   });
 })();
