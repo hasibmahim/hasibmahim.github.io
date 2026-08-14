@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#07152b" />
-  <meta name="description" content="Syed Amin Al Mahim — MSc Computer Science & Engineering student at the University of Oulu. Research interests: trustworthy machine learning, intelligent sensing, multimodal perception, rehabilitation technologies, and research software." />
+  <meta name="description" content="Syed Amin Al Mahim — MSc researcher and Research Assistant at the University of Oulu. Current thesis: Representation-Aligned Feedback Correction for reliable Bayesian preference modelling under modified-item feedback." />
+  <meta property="og:image" content="assets/profile-mahim.jpg" />
   <meta name="author" content="Syed Amin Al Mahim" />
   <meta property="og:title" content="Syed Amin Al Mahim — Research & Academic Portfolio" />
   <meta property="og:description" content="Machine learning researcher and MSc student at the University of Oulu, working across trustworthy AI, sensing, perception, and research software." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hasibmahim.github.io/" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <title>Syed Amin Al Mahim — Research & Academic Portfolio</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css" />
@@ -25,7 +26,8 @@
       "https://github.com/hasibmahim"
     ],
     "email": "mailto:Syed.Mahim@student.oulu.fi",
-    "jobTitle": "MSc Computer Science & Engineering Student",
+    "jobTitle": "Research Assistant and MSc Computer Science & Engineering Student",
+    "image": "assets/profile-mahim.jpg",
     "affiliation": {
       "@type": "CollegeOrUniversity",
       "name": "University of Oulu"
@@ -42,7 +44,10 @@
       "Time-Series Analysis",
       "Multimodal Sensor Data",
       "Distributed Systems",
-      "Research Software Engineering"
+      "Research Software Engineering",
+      "Bayesian Preference Modelling",
+      "Selective Prediction",
+      "Representation-Aligned Feedback Correction"
     ]
   }
   </script>
@@ -63,6 +68,7 @@
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="#about">About</a>
         <a href="#research">Research</a>
+        <a href="#thesis">Thesis</a>
         <a href="#work">Work</a>
         <a href="#publication">Publication</a>
         <a href="#journey">Journey</a>
@@ -81,6 +87,7 @@
     <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
       <a href="#about">About</a>
       <a href="#research">Research</a>
+      <a href="#thesis">Thesis</a>
       <a href="#work">Work</a>
       <a href="#publication">Publication</a>
       <a href="#journey">Journey</a>
@@ -105,14 +112,20 @@
 
           <p class="hero-lead">
             I am <strong>Syed Amin Al Mahim</strong>, a computer science researcher working across
-            trustworthy machine learning, multimodal sensing, computer vision, rehabilitation
-            technologies, and research-oriented software systems.
+            trustworthy machine learning, Bayesian preference modelling, multimodal sensing,
+            computer vision, rehabilitation technologies, and research-oriented software systems.
           </p>
 
           <p class="hero-note">
             My long-term goal is doctoral research that connects rigorous machine learning
             with real-world systems where reliability, perception, privacy, and human impact matter.
           </p>
+
+          <a class="current-thesis-link" href="#thesis">
+            <span class="current-thesis-label">Current MSc thesis</span>
+            <span class="current-thesis-title">When the Logged Item Is Not the Consumed Item</span>
+            <span class="current-thesis-arrow" aria-hidden="true">↘</span>
+          </a>
 
           <div class="hero-actions">
             <a class="button button-primary" href="#research">
@@ -145,6 +158,13 @@
           <div class="orbit-topline">
             <span>Research constellation</span>
             <span class="mono">OULU · FI</span>
+          </div>
+          <div class="profile-badge">
+            <img src="assets/profile-mahim.jpg" alt="Portrait of Syed Amin Al Mahim" loading="eager" />
+            <div>
+              <strong>Syed Amin Al Mahim</strong>
+              <span>Research Assistant · MSc Researcher</span>
+            </div>
           </div>
           <svg id="constellation" viewBox="0 0 620 620" role="img" aria-label="Research topics connected as a constellation">
             <defs>
@@ -219,8 +239,8 @@
           <strong>ML + sensing + systems</strong>
         </div>
         <div>
-          <span class="signal-label">Academic focus</span>
-          <strong>Trustworthy real-world AI</strong>
+          <span class="signal-label">Current thesis</span>
+          <strong>Representation-aligned feedback correction</strong>
         </div>
         <div>
           <span class="signal-label">Next chapter</span>
@@ -335,6 +355,113 @@
             </p>
             <div class="tag-row"><span>Python</span><span>Distributed systems</span><span>Docker</span></div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section thesis-section" id="thesis">
+      <div class="container">
+        <div class="thesis-header reveal">
+          <div>
+            <span class="kicker">Current MSc thesis · 2026</span>
+            <h2>When the Logged Item Is Not the Consumed Item:<br/><span>Representation-Aligned Feedback Correction</span></h2>
+          </div>
+          <div class="thesis-meta">
+            <div><span>Institution</span><strong>University of Oulu</strong></div>
+            <div><span>Research unit</span><strong>Center for Machine Vision and Signal Analysis</strong></div>
+            <div><span>Supervisors</span><strong>Prof. Mourad Oussalah · Dr. Mehrdad Rostami</strong></div>
+            <div><span>Dataset</span><strong>HUMMUS · RecSys 2023</strong></div>
+          </div>
+        </div>
+
+        <div class="thesis-hero-card reveal">
+          <div class="thesis-statement">
+            <span class="thesis-chip">Core research question</span>
+            <p>
+              When a review describes a recipe that the user modified before eating it, should that mismatch be
+              corrected as an error in the item representation, or treated as residual uncertainty in the outcome?
+            </p>
+            <div class="thesis-callout">
+              <strong>The central idea:</strong> the correct treatment of a described item change depends on the
+              change <em>relative to the model representation</em> — not on the edit alone.
+            </div>
+          </div>
+
+          <div class="thesis-diagram" aria-label="Thesis pipeline">
+            <div class="diagram-node"><small>Logged recipe</small><strong>φᵣ</strong></div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-node"><small>Historical review</small><strong>edit + stance</strong></div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-split">
+              <div class="diagram-node accent"><small>inside representation</small><strong>Δ</strong></div>
+              <div class="diagram-node teal"><small>outside representation</small><strong>residual ξ</strong></div>
+            </div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-node wide"><small>Representation-aligned correction</small><strong>RAFC</strong></div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-node wide"><small>Temporal Bayesian user belief</small><strong>p(θᵤ | history)</strong></div>
+          </div>
+        </div>
+
+        <div class="thesis-grid">
+          <article class="thesis-card reveal">
+            <span class="card-index">01</span>
+            <h3>Historical evidence, corrected before updating</h3>
+            <p>
+              Reviews are decomposed into preference stance, recipe edits, edit motive, and semantic reliability.
+              In-representation edits can shift the expected item state; out-of-representation effects are routed to
+              residual uncertainty rather than being blindly mean-corrected.
+            </p>
+            <div class="tag-row"><span>Bayesian updating</span><span>ACSA</span><span>Reliability</span><span>Measurement error</span></div>
+          </article>
+
+          <article class="thesis-card reveal">
+            <span class="card-index">02</span>
+            <h3>Leakage-proof temporal evaluation</h3>
+            <p>
+              The target rating and target review remain sealed. The primary Track A analysis uses one target per
+              user, with user-level and temporal separation, so every prediction is based strictly on historical evidence
+              available before the target time.
+            </p>
+            <div class="tag-row"><span>One target / user</span><span>Temporal split</span><span>User separation</span></div>
+          </article>
+
+          <article class="thesis-card reveal">
+            <span class="card-index">03</span>
+            <h3>Selective dislike prediction on low-health recipes</h3>
+            <p>
+              The downstream task is a post-selection intervention: after a user opens a NutriScore D/E recipe, the
+              model estimates dislike risk and either makes a prediction or abstains. Calibration controls a monotone
+              false-discovery-style risk, while selective risk and coverage are reported separately.
+            </p>
+            <div class="tag-row"><span>Selective prediction</span><span>CRC</span><span>Risk–coverage</span><span>α = 0.05</span></div>
+          </article>
+
+          <article class="thesis-card reveal">
+            <span class="card-index">04</span>
+            <h3>Model comparison designed to isolate the contribution</h3>
+            <p>
+              The study compares a ratings-only baseline, uncorrected review features, automatic correction,
+              reliability-weighted correction, and manual/oracle correction on the annotated subset. Representation
+              interventions test whether an edit changes category when its corresponding feature is removed.
+            </p>
+            <div class="tag-row"><span>Ratings-only</span><span>Automatic</span><span>Reliability-weighted</span><span>Oracle</span></div>
+          </article>
+        </div>
+
+        <div class="thesis-boundary reveal">
+          <div>
+            <span class="boundary-label">Data integrity</span>
+            <p><strong>Ratings 2.5 are excluded from rating-based outcomes</strong>; their review text can remain as historical evidence. Rating 6 records are also excluded from ordinal outcomes.</p>
+          </div>
+          <div>
+            <span class="boundary-label">Scope boundary</span>
+            <p><strong>Realised health is outside the main MSc claim.</strong> Without a validated mapping from recipe edits to nutrient changes, the study does not claim health-as-consumed.</p>
+          </div>
+          <div>
+            <span class="boundary-label">Interpretation</span>
+            <p><strong>This is not an open-catalogue recommender guarantee.</strong> It is retrospective/selective prediction over observed low-health interactions, framed as a post-selection intervention.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -507,7 +634,7 @@
               <span class="timeline-type">Education</span>
               <h3>MSc Computer Science & Engineering — Applied Computing</h3>
               <p class="timeline-place">University of Oulu · Oulu, Finland</p>
-              <p>Coursework includes Machine Learning, Data Mining, High-Performance & Parallel Computing, Scientific Computing, Software Systems, and Programmable Web.</p>
+              <p>Current MSc thesis: <em>When the Logged Item Is Not the Consumed Item: Representation-Aligned Feedback Correction</em>. Coursework includes Machine Learning, Data Mining, High-Performance & Parallel Computing, Scientific Computing, Software Systems, and Programmable Web.</p>
             </div>
           </article>
 
@@ -627,7 +754,7 @@
         <strong>Syed Amin Al Mahim</strong>
         <p>MSc Computer Science & Engineering · University of Oulu</p>
       </div>
-      <p class="footer-note">Designed as an academic home for research, publications, projects, and future doctoral work.</p>
+      <p class="footer-note">Academic home for current thesis research, publications, projects, teaching, and future doctoral work.</p>
       <a href="#top">Back to top ↑</a>
     </div>
   </footer>
