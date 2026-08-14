@@ -63,6 +63,122 @@
     }
   });
 
+  // Embed the supplied SSL-DF Figma research outline inside the 2023 deepfake project.
+  if (!document.getElementById('ssl-df-project-styles')) {
+    const figmaStyles = document.createElement('style');
+    figmaStyles.id = 'ssl-df-project-styles';
+    figmaStyles.textContent = `
+      .ssl-df-outline {
+        margin: 28px 0 0;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+      .ssl-df-outline-frame {
+        position: relative;
+        width: 100%;
+        height: clamp(500px, 62vw, 760px);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: 0 14px 34px rgba(9,24,48,.07);
+      }
+      .ssl-df-outline-frame iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #fff;
+      }
+      .ssl-df-outline-caption {
+        display: grid;
+        grid-template-columns: minmax(0,1fr) auto;
+        gap: 24px;
+        align-items: end;
+        padding: 15px 2px 0;
+      }
+      .ssl-df-outline-label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--accent);
+        font-size: 9px;
+        font-weight: 830;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+      }
+      .ssl-df-outline-caption strong {
+        display: block;
+        color: var(--ink);
+        font-size: 13px;
+        letter-spacing: -.01em;
+      }
+      .ssl-df-outline-caption p {
+        max-width: 760px;
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.55;
+      }
+      .ssl-df-outline-caption a {
+        white-space: nowrap;
+        color: var(--accent);
+        font-size: 11px;
+        font-weight: 760;
+      }
+      .ssl-df-outline-caption a:hover,
+      .ssl-df-outline-caption a:focus-visible {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      @media (max-width: 780px) {
+        .ssl-df-outline-frame { height: 520px; border-radius: 14px; }
+        .ssl-df-outline-caption { grid-template-columns: 1fr; gap: 10px; align-items: start; }
+      }
+      @media (max-width: 520px) {
+        .ssl-df-outline-frame { height: 430px; }
+      }
+    `;
+    document.head.appendChild(figmaStyles);
+  }
+
+  const deepfakeHeading = [...document.querySelectorAll('.project-card h3')]
+    .find((heading) => heading.textContent.trim() === 'DeepFake Detection with Self-Supervised Learning');
+  const deepfakeCard = deepfakeHeading?.closest('.project-card');
+
+  if (deepfakeCard && !deepfakeCard.querySelector('.ssl-df-outline')) {
+    const description = deepfakeHeading.parentElement?.querySelector('p');
+    if (description) {
+      description.textContent = 'Worked on video deepfake detection using self-supervised representation learning, with an emphasis on generalization and robustness. The research outline explores inconsistencies between left- and right-eye dynamics as a signal for deepfake detection.';
+    }
+
+    const tags = deepfakeHeading.parentElement?.querySelector('.tag-row');
+    if (tags) {
+      tags.innerHTML = '<span>PyTorch</span><span>Self-supervised learning</span><span>Deepfake</span><span>Eye dynamics</span>';
+    }
+
+    const figure = document.createElement('figure');
+    figure.className = 'ssl-df-outline';
+    figure.innerHTML = `
+      <div class="ssl-df-outline-frame">
+        <iframe
+          title="SSL-DF paper outline diagram"
+          src="https://embed.figma.com/design/DWyvlF80SF91Uu5i8SEqZ8/SSL-DF?node-id=308-2&embed-host=share"
+          loading="lazy"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <figcaption class="ssl-df-outline-caption">
+        <div>
+          <span class="ssl-df-outline-label">Research outline · 2023</span>
+          <strong>Self-supervised deepfake detection from left/right-eye dynamics</strong>
+          <p>The outline proposes two stages: pretraining on real videos so paired eye sequences learn related representations, followed by fine-tuning on real and deepfake datasets for detection.</p>
+        </div>
+        <a href="https://www.figma.com/design/DWyvlF80SF91Uu5i8SEqZ8/SSL-DF?node-id=308-2" target="_blank" rel="noopener">Open full diagram in Figma ↗</a>
+      </figcaption>
+    `;
+    deepfakeCard.appendChild(figure);
+  }
+
   const root = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const menuToggle = document.getElementById('menuToggle');
