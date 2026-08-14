@@ -1,4 +1,13 @@
 (() => {
+  // Load the V3 thesis/profile stylesheet. This keeps the original stylesheet intact
+  // while enabling the newly added thesis section and local portrait styling.
+  if (!document.querySelector('link[href="assets/thesis-v3.css"]')) {
+    const extraStyles = document.createElement('link');
+    extraStyles.rel = 'stylesheet';
+    extraStyles.href = 'assets/thesis-v3.css';
+    document.head.appendChild(extraStyles);
+  }
+
   const root = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const menuToggle = document.getElementById('menuToggle');
