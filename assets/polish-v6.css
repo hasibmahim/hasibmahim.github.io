@@ -1,58 +1,47 @@
 /* ==========================================================
-   V6 — Final visual cleanup
-   Focus: research-artifact cards, footer, interaction polish,
-   and a calmer academic wordmark.
+   V6 — Final visual system
+   Header portrait, research-map hero, footer and DTW artifact.
    ========================================================== */
 
-/* ----------------------------------------------------------
-   Header brand / wordmark
-   ---------------------------------------------------------- */
+/* ---------------- Header identity ---------------- */
 .brand {
   min-width: 0;
   gap: 12px;
   padding: 5px 7px 5px 5px;
-  border-radius: 12px;
+  border-radius: 999px;
 }
-
 .brand-mark {
   position: relative;
-  width: 38px;
-  height: 38px;
-  flex: 0 0 38px;
-  border: 1px solid color-mix(in srgb, var(--ink) 18%, var(--line));
-  border-radius: 11px;
-  background: color-mix(in srgb, var(--surface) 96%, var(--accent-soft));
-  color: var(--ink);
-  box-shadow: none;
-  font-size: 10.5px;
-  font-weight: 780;
-  letter-spacing: -.04em;
+  width: 44px !important;
+  height: 44px !important;
+  flex: 0 0 44px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--surface) !important;
+  background: url("header-avatar.svg") center/cover no-repeat !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  box-shadow: 0 7px 20px rgba(10,27,48,.13), 0 0 0 1px color-mix(in srgb, var(--line) 75%, transparent) !important;
 }
-
 .brand-mark::after {
   content: "";
   position: absolute;
-  right: 5px;
-  bottom: 5px;
-  width: 5px;
-  height: 5px;
+  right: -1px;
+  bottom: -1px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: var(--accent-2);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-2) 12%, transparent);
+  background: #20b978;
+  border: 2px solid var(--surface);
+  box-shadow: 0 2px 8px rgba(32,185,120,.25);
 }
-
-.brand-copy {
-  gap: 1px;
-}
-
+.brand-copy { gap: 1px; }
 .brand-copy strong {
   color: var(--ink);
   font-size: 14px;
-  font-weight: 720;
+  font-weight: 740;
   letter-spacing: -.025em;
   line-height: 1.15;
 }
-
 .brand-copy small {
   position: relative;
   display: block;
@@ -62,37 +51,201 @@
   margin-top: 2px;
   color: transparent;
   font-size: 0;
-  line-height: 1;
-  letter-spacing: 0;
 }
-
 .brand-copy small::before {
   content: "MSc Researcher · University of Oulu";
   display: block;
   width: max-content;
   color: var(--muted);
   font-size: 9px;
-  font-weight: 590;
+  font-weight: 600;
   letter-spacing: .025em;
-  line-height: 1.2;
-  text-transform: none;
   white-space: nowrap;
 }
 
-.brand:hover .brand-mark {
-  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
-  background: var(--surface);
+/* ---------------- Hero research map ---------------- */
+/* The right side is now a research map, not a second profile card. */
+.research-orbit {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: auto auto 1fr auto !important;
+  gap: 0 !important;
+  min-height: 590px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent) !important;
+  border-radius: 28px !important;
+  background:
+    radial-gradient(circle at 72% 38%, rgba(44,109,232,.11), transparent 31%),
+    radial-gradient(circle at 25% 78%, rgba(20,162,154,.07), transparent 28%),
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 98%, var(--accent-soft)), var(--surface)) !important;
+  box-shadow: 0 28px 72px rgba(13,31,55,.10) !important;
+}
+.research-orbit::before,
+.research-orbit::after { display: none !important; }
+
+.orbit-topline {
+  grid-row: 1 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 22px 14px !important;
+  border-bottom: 1px solid var(--line) !important;
+  color: var(--muted) !important;
+  font-size: 9px !important;
+  letter-spacing: .13em !important;
+  text-transform: uppercase !important;
+}
+.orbit-topline span:first-child {
+  color: transparent;
+  font-size: 0;
+}
+.orbit-topline span:first-child::after {
+  content: "Research map · how my work connects";
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .11em;
 }
 
-html[data-theme="dark"] .brand-mark {
-  border-color: color-mix(in srgb, var(--ink) 20%, var(--line));
-  background: color-mix(in srgb, var(--surface) 96%, transparent);
+.profile-badge {
+  grid-row: 2 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-self: stretch !important;
+  gap: 12px !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 15px 22px 10px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.profile-badge img {
+  width: 54px !important;
+  height: 54px !important;
+  aspect-ratio: 1 !important;
+  object-fit: cover !important;
+  object-position: 50% 18% !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--surface) !important;
+  box-shadow: 0 6px 17px rgba(10,27,48,.12), 0 0 0 1px var(--line) !important;
+  filter: saturate(.94) !important;
+}
+.profile-badge div {
+  display: grid !important;
+  gap: 2px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+.profile-badge strong {
+  font-size: 12px !important;
+  font-weight: 720 !important;
+  color: var(--ink) !important;
+}
+.profile-badge span {
+  display: block !important;
+  margin: 0 !important;
+  color: var(--muted) !important;
+  font-size: 9px !important;
+  letter-spacing: .02em !important;
+}
+.profile-badge span::after {
+  content: " · PhD-oriented research trajectory";
+  color: var(--accent-2);
 }
 
-/* Footer: remove the redundant middle sentence and use the space intentionally. */
+#constellation {
+  grid-row: 3 !important;
+  width: min(100%, 500px) !important;
+  max-width: 500px !important;
+  height: auto !important;
+  margin: -14px auto -12px !important;
+  padding: 0 12px !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+.orbit-ring {
+  stroke: color-mix(in srgb, var(--accent) 20%, var(--line)) !important;
+  opacity: .75 !important;
+  stroke-dasharray: 3 8 !important;
+}
+.edges line {
+  stroke: color-mix(in srgb, var(--accent) 44%, var(--line)) !important;
+  stroke-width: 1.5 !important;
+  opacity: .62 !important;
+}
+.topic-node circle {
+  fill: color-mix(in srgb, var(--surface) 95%, var(--accent-soft)) !important;
+  stroke: color-mix(in srgb, var(--accent) 60%, var(--line)) !important;
+  stroke-width: 1.5 !important;
+  filter: drop-shadow(0 6px 14px rgba(25,74,145,.10)) !important;
+}
+.node-core circle {
+  fill: color-mix(in srgb, var(--surface) 82%, var(--accent-soft)) !important;
+  stroke: var(--accent) !important;
+  stroke-width: 2 !important;
+}
+.topic-node text {
+  fill: var(--ink) !important;
+  font-size: 11px !important;
+  font-weight: 820 !important;
+  letter-spacing: .06em !important;
+}
+.topic-node .node-small {
+  fill: var(--muted) !important;
+  font-size: 8px !important;
+  font-weight: 650 !important;
+  letter-spacing: 0 !important;
+}
+.node-core text { font-size: 12px !important; }
+.node-core .node-small { font-size: 8px !important; }
+
+.orbit-caption {
+  grid-row: 4 !important;
+  display: grid !important;
+  grid-template-columns: auto 1fr !important;
+  gap: 12px !important;
+  align-items: start !important;
+  padding: 15px 22px 20px !important;
+  border-top: 1px solid var(--line) !important;
+}
+.orbit-caption span {
+  display: inline-grid !important;
+  place-items: center;
+  min-width: 31px;
+  height: 24px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent) !important;
+  font-size: 9px !important;
+  font-weight: 780;
+}
+.orbit-caption p {
+  position: relative;
+  max-width: none !important;
+  margin: 0 !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.orbit-caption p::after {
+  content: "Five connected directions define my research profile: trustworthy ML, multimodal perception, intelligent sensing, reliable systems, and human-centred applications. The shared objective is dependable machine intelligence for real-world settings.";
+  display: block;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.55;
+  letter-spacing: 0;
+}
+
+/* ---------------- Footer ---------------- */
 .footer-note { display: none !important; }
 .footer-grid {
-  grid-template-columns: minmax(0, 1fr) auto !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
   justify-content: space-between;
   align-items: center !important;
 }
@@ -105,20 +258,13 @@ html[data-theme="dark"] .brand-mark {
   border-radius: 10px;
   background: color-mix(in srgb, var(--surface) 92%, transparent);
   color: var(--muted);
-  transition: color .18s ease, border-color .18s ease, transform .18s ease, background .18s ease;
-}
-.footer-grid > a[href="#top"]:hover {
-  color: var(--ink);
-  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
-  background: var(--surface);
-  transform: translateY(-1px);
 }
 
-/* DTW project: a compact paper-figure treatment based on Kinect joint tracking. */
+/* ---------------- DTW project artifact ---------------- */
 .dtw-paper-artifact {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(330px, 1.15fr) minmax(260px, .85fr);
+  grid-template-columns: minmax(330px,1.15fr) minmax(260px,.85fr);
   gap: 28px;
   align-items: center;
   margin-top: 24px;
@@ -126,24 +272,9 @@ html[data-theme="dark"] .brand-mark {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(108, 67, 164, .07), transparent 26%),
-    linear-gradient(135deg, color-mix(in srgb, var(--surface) 97%, #f6f2fb), var(--surface));
-}
-.dtw-paper-artifact::after {
-  content: "";
-  position: absolute;
-  right: -85px;
-  bottom: -105px;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  border: 1px solid rgba(108,67,164,.11);
-  box-shadow: 0 0 0 38px rgba(108,67,164,.025), 0 0 0 76px rgba(37,99,235,.018);
-  pointer-events: none;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 97%, #f6f2fb), var(--surface));
 }
 .dtw-joint-figure {
-  position: relative;
   min-height: 276px;
   display: grid;
   place-items: center;
@@ -151,132 +282,51 @@ html[data-theme="dark"] .brand-mark {
   border-radius: 14px;
   background: #f5f5f7;
   border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
-  overflow: hidden;
 }
-html[data-theme="dark"] .dtw-joint-figure {
-  background: #edf0f4;
-}
-.dtw-joint-figure svg {
-  width: 100%;
-  max-width: 520px;
-  height: 260px;
-}
-.dtw-artifact-copy {
-  position: relative;
-  z-index: 2;
-  padding-right: 4px;
-}
-.dtw-artifact-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: #6c43a4;
-  font-size: 8.5px;
-  font-weight: 820;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-.dtw-artifact-eyebrow::before {
-  content: "";
-  width: 20px;
-  height: 1px;
-  background: #6c43a4;
-}
-.dtw-artifact-copy h4 {
-  margin: 13px 0 8px;
-  color: var(--ink);
-  font-size: clamp(18px, 2vw, 24px);
-  line-height: 1.18;
-  letter-spacing: -.032em;
-  font-weight: 700;
-}
-.dtw-artifact-copy p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 11.5px;
-  line-height: 1.65;
-}
-.dtw-flow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-  margin: 17px 0 18px;
-}
-.dtw-flow span {
-  padding: 6px 8px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--muted);
-  font-size: 8.5px;
-  font-weight: 720;
-}
-.dtw-flow b {
-  color: #6c43a4;
-  font-size: 11px;
-  font-weight: 700;
-}
-.dtw-paper-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 760;
-}
-.dtw-paper-link:hover,
-.dtw-paper-link:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+.dtw-joint-figure svg { width:100%; max-width:520px; height:260px; }
+.dtw-artifact-eyebrow { color:#6c43a4; font-size:8.5px; font-weight:820; letter-spacing:.14em; text-transform:uppercase; }
+.dtw-artifact-copy h4 { margin:13px 0 8px; color:var(--ink); font-size:clamp(18px,2vw,24px); line-height:1.18; letter-spacing:-.032em; }
+.dtw-artifact-copy p { color:var(--muted); font-size:11.5px; line-height:1.65; }
+.dtw-flow { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:17px 0 18px; }
+.dtw-flow span { padding:6px 8px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--muted); font-size:8.5px; font-weight:720; }
+.dtw-flow b { color:#6c43a4; font-size:11px; }
+.dtw-paper-link { color:var(--accent); font-size:11px; font-weight:760; }
+.dtw-body-fill { fill:#b9bbc0; opacity:.9; }
+.dtw-body-line { fill:none; stroke:#8b8f98; stroke-width:3; stroke-linecap:round; }
+.dtw-skeleton { fill:none; stroke:#6c43a4; stroke-width:3.1; stroke-linecap:round; }
+.dtw-joint { fill:#7545ac; }
+.dtw-callout { fill:none; stroke:#5a5d63; stroke-width:1.35; }
+.dtw-number { fill:#4c4f55; font:700 12px "Segoe UI",sans-serif; }
+.dtw-figure-label { fill:#6c43a4; font:700 9px "Segoe UI",sans-serif; }
+.dtw-paper-visual { display:none !important; }
 
-/* The actual joint map: quiet grayscale body + restrained research-purple tracking. */
-.dtw-body-fill { fill: #b9bbc0; opacity: .9; }
-.dtw-body-line { fill: none; stroke: #8b8f98; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.dtw-skeleton { fill: none; stroke: #6c43a4; stroke-width: 3.1; stroke-linecap: round; stroke-linejoin: round; }
-.dtw-joint { fill: #7545ac; }
-.dtw-callout { fill: none; stroke: #5a5d63; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
-.dtw-number { fill: #4c4f55; font: 700 12px "Segoe UI", sans-serif; }
-.dtw-figure-label { fill: #6c43a4; font: 700 9px "Segoe UI", sans-serif; letter-spacing: .08em; }
-
-/* The old experimental DTW visual should never show if a cached script left it in the DOM. */
-.dtw-paper-visual { display: none !important; }
-
-@media (max-width: 900px) {
-  .dtw-paper-artifact {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-  .dtw-joint-figure { min-height: 250px; }
-  .dtw-joint-figure svg { height: 235px; }
+@media (max-width:1050px) {
+  .research-orbit { min-height:560px !important; }
+  #constellation { max-width:480px !important; }
 }
-
-@media (max-width: 780px) {
-  .footer-grid { grid-template-columns: 1fr auto !important; }
-  .dtw-paper-artifact { padding: 17px; }
-  .brand-copy small::before { font-size: 8.5px; }
+@media (max-width:900px) {
+  .dtw-paper-artifact { grid-template-columns:1fr; }
 }
-
-@media (max-width: 620px) {
-  .brand-copy small::before { content: "MSc Researcher · Oulu"; }
+@media (max-width:780px) {
+  .research-orbit { min-height:0 !important; border-radius:22px !important; }
+  .profile-badge { padding:14px 16px 6px !important; }
+  .orbit-topline { padding:17px 16px 12px !important; }
+  #constellation { max-width:430px !important; margin:-10px auto !important; }
+  .orbit-caption { padding:13px 16px 17px !important; }
+  .topic-node text { font-size:10px !important; }
+  .topic-node .node-small { font-size:7px !important; }
 }
-
-@media (max-width: 520px) {
-  .footer-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-    align-items: start !important;
-  }
-  .footer-grid > a[href="#top"] { width: fit-content; }
-  .dtw-joint-figure { min-height: 205px; }
-  .dtw-joint-figure svg { height: 195px; }
-  .dtw-artifact-copy h4 { font-size: 18px; }
-  .brand-mark {
-    width: 36px;
-    height: 36px;
-    flex-basis: 36px;
-  }
-  .brand-copy strong { font-size: 12.5px; }
-  .brand-copy small::before { font-size: 8px; }
+@media (max-width:620px) {
+  .brand-copy small::before { content:"MSc Researcher · Oulu"; }
+}
+@media (max-width:520px) {
+  .brand-mark { width:40px !important; height:40px !important; flex-basis:40px !important; }
+  .brand-copy strong { font-size:12.5px; }
+  .brand-copy small::before { font-size:8px; }
+  .profile-badge img { width:46px !important; height:46px !important; }
+  .profile-badge span::after { content:""; }
+  #constellation { max-width:360px !important; padding:0 !important; }
+  .orbit-caption { grid-template-columns:1fr !important; }
+  .footer-grid { grid-template-columns:1fr !important; gap:16px !important; align-items:start !important; }
+  .footer-grid > a[href="#top"] { width:fit-content; }
 }
