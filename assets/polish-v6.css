@@ -1,6 +1,7 @@
 /* ==========================================================
    V6 — Final visual system
-   Header portrait, research-map hero, footer and DTW artifact.
+   Header portrait, integrated academic profile, research map,
+   footer and DTW artifact.
    ========================================================== */
 
 /* ---------------- Header identity ---------------- */
@@ -17,7 +18,7 @@
   flex: 0 0 44px !important;
   border-radius: 50% !important;
   border: 2px solid var(--surface) !important;
-  background: url("header-avatar.svg") center/cover no-repeat !important;
+  background: url("header-avatar.svg?v=20260814") center/cover no-repeat !important;
   color: transparent !important;
   font-size: 0 !important;
   box-shadow: 0 7px 20px rgba(10,27,48,.13), 0 0 0 1px color-mix(in srgb, var(--line) 75%, transparent) !important;
@@ -27,12 +28,12 @@
   position: absolute;
   right: -1px;
   bottom: -1px;
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #20b978;
   border: 2px solid var(--surface);
-  box-shadow: 0 2px 8px rgba(32,185,120,.25);
+  box-shadow: 0 2px 8px rgba(32,185,120,.22);
 }
 .brand-copy { gap: 1px; }
 .brand-copy strong {
@@ -67,7 +68,7 @@
 .research-orbit {
   position: relative;
   display: grid !important;
-  grid-template-columns: 1fr !important;
+  grid-template-columns: auto minmax(0,1fr) auto !important;
   grid-template-rows: auto minmax(0,1fr) auto !important;
   gap: 0 !important;
   min-height: 590px !important;
@@ -84,17 +85,47 @@
 .research-orbit::before,
 .research-orbit::after { display: none !important; }
 
-.orbit-topline {
+/* The portrait is now a compact identity anchor, not a competing profile card. */
+.research-orbit .profile-badge {
   grid-column: 1 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 18px 0 18px 22px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.research-orbit .profile-badge img {
+  width: 76px !important;
+  height: 76px !important;
+  aspect-ratio: 1 !important;
+  object-fit: cover !important;
+  object-position: 50% 24% !important;
+  border-radius: 22px !important;
+  border: 2px solid var(--surface) !important;
+  box-shadow:
+    0 10px 26px rgba(10,27,48,.15),
+    0 0 0 1px color-mix(in srgb, var(--line) 86%, transparent) !important;
+  filter: saturate(.95) contrast(1.015) !important;
+}
+.research-orbit .profile-badge div { display: none !important; }
+
+.orbit-topline {
+  grid-column: 2 / 4 !important;
   grid-row: 1 !important;
   width: 100% !important;
   min-width: 0 !important;
   box-sizing: border-box !important;
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
   align-items: center !important;
-  gap: 24px !important;
-  padding: 24px 26px 20px !important;
+  gap: 22px !important;
+  padding: 20px 24px 20px 16px !important;
   border-bottom: 1px solid color-mix(in srgb, var(--line) 82%, transparent) !important;
   text-transform: none !important;
 }
@@ -112,7 +143,7 @@
   margin-bottom: 7px !important;
   color: var(--accent-2) !important;
   font-size: 8.5px !important;
-  font-weight: 800 !important;
+  font-weight: 820 !important;
   line-height: 1 !important;
   letter-spacing: .16em !important;
   text-transform: uppercase !important;
@@ -121,11 +152,10 @@
   content: "How my work connects" !important;
   display: block !important;
   color: var(--ink) !important;
-  font-size: clamp(18px, 2vw, 23px) !important;
+  font-size: clamp(19px, 2vw, 24px) !important;
   font-weight: 720 !important;
   line-height: 1.08 !important;
   letter-spacing: -.035em !important;
-  text-transform: none !important;
   white-space: normal !important;
 }
 .orbit-topline .mono {
@@ -145,20 +175,15 @@
   white-space: nowrap !important;
 }
 
-/* Remove the redundant second portrait inside the research map. */
-.research-orbit .profile-badge {
-  display: none !important;
-}
-
 #constellation {
-  grid-column: 1 !important;
+  grid-column: 1 / 4 !important;
   grid-row: 2 !important;
   align-self: center !important;
   justify-self: center !important;
   width: min(94%, 560px) !important;
   max-width: 560px !important;
   height: auto !important;
-  margin: 6px auto 0 !important;
+  margin: 4px auto 0 !important;
   padding: 8px 18px !important;
   overflow: visible !important;
   opacity: 1 !important;
@@ -201,10 +226,10 @@
 .node-core .node-small { font-size: 8px !important; }
 
 .orbit-caption {
-  grid-column: 1 !important;
+  grid-column: 1 / 4 !important;
   grid-row: 3 !important;
   display: grid !important;
-  grid-template-columns: auto minmax(0, 1fr) !important;
+  grid-template-columns: auto minmax(0,1fr) !important;
   gap: 14px !important;
   align-items: start !important;
   width: 100% !important;
@@ -232,7 +257,7 @@
   font-size: 0 !important;
 }
 .orbit-caption p::after {
-  content: "The map shows the common thread across my work: trustworthy learning, perception, sensing, systems, and human-centred applications all converge on reliable machine intelligence for real-world environments." !important;
+  content: "The common thread across my work is dependable machine intelligence: trustworthy learning, multimodal perception, intelligent sensing, reliable systems, and human-centred applications all meet here." !important;
   display: block;
   color: var(--muted) !important;
   font-size: 10.5px !important;
@@ -314,21 +339,12 @@ html[data-theme="dark"] .orbit-caption {
 }
 @media (max-width:780px) {
   .research-orbit { min-height:0 !important; border-radius:22px !important; }
-  .orbit-topline {
-    gap:14px !important;
-    padding:19px 18px 16px !important;
-  }
+  .research-orbit .profile-badge { padding:14px 0 14px 16px !important; }
+  .research-orbit .profile-badge img { width:62px !important; height:62px !important; border-radius:18px !important; }
+  .orbit-topline { gap:14px !important; padding:16px 16px 16px 12px !important; }
   .orbit-topline span:first-child::after { font-size:18px !important; }
-  .orbit-topline .mono {
-    min-width:auto !important;
-    padding:7px 9px !important;
-    font-size:8px !important;
-  }
-  #constellation {
-    width:min(100%,470px) !important;
-    padding:8px !important;
-    margin-top:0 !important;
-  }
+  .orbit-topline .mono { min-width:auto !important; padding:7px 9px !important; font-size:8px !important; }
+  #constellation { width:min(100%,470px) !important; padding:8px !important; margin-top:0 !important; }
   .orbit-caption { padding:14px 18px 18px !important; }
   .topic-node text { font-size:10px !important; }
   .topic-node .node-small { font-size:7px !important; }
@@ -340,10 +356,13 @@ html[data-theme="dark"] .orbit-caption {
   .brand-mark { width:40px !important; height:40px !important; flex-basis:40px !important; }
   .brand-copy strong { font-size:12.5px; }
   .brand-copy small::before { font-size:8px; }
-  .orbit-topline { grid-template-columns:1fr !important; gap:11px !important; }
+  .research-orbit { grid-template-columns:auto minmax(0,1fr) !important; }
+  .research-orbit .profile-badge { grid-column:1 !important; padding:13px 0 13px 14px !important; }
+  .research-orbit .profile-badge img { width:54px !important; height:54px !important; border-radius:16px !important; }
+  .orbit-topline { grid-column:2 !important; grid-template-columns:1fr !important; gap:8px !important; padding:13px 14px 13px 10px !important; }
   .orbit-topline .mono { justify-self:start !important; }
-  #constellation { width:100% !important; padding:4px 0 !important; }
-  .orbit-caption { grid-template-columns:1fr !important; gap:8px !important; }
+  #constellation { grid-column:1 / 3 !important; width:100% !important; padding:4px 0 !important; }
+  .orbit-caption { grid-column:1 / 3 !important; grid-template-columns:1fr !important; gap:8px !important; }
   .footer-grid { grid-template-columns:1fr !important; gap:16px !important; align-items:start !important; }
   .footer-grid > a[href="#top"] { width:fit-content; }
 }
