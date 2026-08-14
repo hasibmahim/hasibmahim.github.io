@@ -1,0 +1,184 @@
+/* ==========================================================
+   V6 — Final visual cleanup
+   Focus: research-artifact cards, footer, and interaction polish.
+   ========================================================== */
+
+/* Footer: remove the redundant middle sentence and use the space intentionally. */
+.footer-note { display: none !important; }
+.footer-grid {
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  justify-content: space-between;
+  align-items: center !important;
+}
+.footer-grid > a[href="#top"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--muted);
+  transition: color .18s ease, border-color .18s ease, transform .18s ease, background .18s ease;
+}
+.footer-grid > a[href="#top"]:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+/* DTW project: a compact paper-figure treatment based on Kinect joint tracking. */
+.dtw-paper-artifact {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(330px, 1.15fr) minmax(260px, .85fr);
+  gap: 28px;
+  align-items: center;
+  margin-top: 24px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(108, 67, 164, .07), transparent 26%),
+    linear-gradient(135deg, color-mix(in srgb, var(--surface) 97%, #f6f2fb), var(--surface));
+}
+.dtw-paper-artifact::after {
+  content: "";
+  position: absolute;
+  right: -85px;
+  bottom: -105px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 1px solid rgba(108,67,164,.11);
+  box-shadow: 0 0 0 38px rgba(108,67,164,.025), 0 0 0 76px rgba(37,99,235,.018);
+  pointer-events: none;
+}
+.dtw-joint-figure {
+  position: relative;
+  min-height: 276px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border-radius: 14px;
+  background: #f5f5f7;
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  overflow: hidden;
+}
+html[data-theme="dark"] .dtw-joint-figure {
+  background: #edf0f4;
+}
+.dtw-joint-figure svg {
+  width: 100%;
+  max-width: 520px;
+  height: 260px;
+}
+.dtw-artifact-copy {
+  position: relative;
+  z-index: 2;
+  padding-right: 4px;
+}
+.dtw-artifact-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #6c43a4;
+  font-size: 8.5px;
+  font-weight: 820;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.dtw-artifact-eyebrow::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: #6c43a4;
+}
+.dtw-artifact-copy h4 {
+  margin: 13px 0 8px;
+  color: var(--ink);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.18;
+  letter-spacing: -.032em;
+  font-weight: 700;
+}
+.dtw-artifact-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.65;
+}
+.dtw-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 17px 0 18px;
+}
+.dtw-flow span {
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 8.5px;
+  font-weight: 720;
+}
+.dtw-flow b {
+  color: #6c43a4;
+  font-size: 11px;
+  font-weight: 700;
+}
+.dtw-paper-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 760;
+}
+.dtw-paper-link:hover,
+.dtw-paper-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The actual joint map: quiet grayscale body + restrained research-purple tracking. */
+.dtw-body-fill { fill: #b9bbc0; opacity: .9; }
+.dtw-body-line { fill: none; stroke: #8b8f98; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.dtw-skeleton { fill: none; stroke: #6c43a4; stroke-width: 3.1; stroke-linecap: round; stroke-linejoin: round; }
+.dtw-joint { fill: #7545ac; }
+.dtw-callout { fill: none; stroke: #5a5d63; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
+.dtw-number { fill: #4c4f55; font: 700 12px "Segoe UI", sans-serif; }
+.dtw-figure-label { fill: #6c43a4; font: 700 9px "Segoe UI", sans-serif; letter-spacing: .08em; }
+
+/* The old experimental DTW visual should never show if a cached script left it in the DOM. */
+.dtw-paper-visual { display: none !important; }
+
+@media (max-width: 900px) {
+  .dtw-paper-artifact {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .dtw-joint-figure { min-height: 250px; }
+  .dtw-joint-figure svg { height: 235px; }
+}
+
+@media (max-width: 780px) {
+  .footer-grid { grid-template-columns: 1fr auto !important; }
+  .dtw-paper-artifact { padding: 17px; }
+}
+
+@media (max-width: 520px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    align-items: start !important;
+  }
+  .footer-grid > a[href="#top"] { width: fit-content; }
+  .dtw-joint-figure { min-height: 205px; }
+  .dtw-joint-figure svg { height: 195px; }
+  .dtw-artifact-copy h4 { font-size: 18px; }
+}
