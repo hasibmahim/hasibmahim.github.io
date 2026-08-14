@@ -64,12 +64,11 @@
 }
 
 /* ---------------- Hero research map ---------------- */
-/* The right side is now a research map, not a second profile card. */
 .research-orbit {
   position: relative;
   display: grid !important;
   grid-template-columns: 1fr !important;
-  grid-template-rows: auto auto 1fr auto !important;
+  grid-template-rows: auto minmax(0,1fr) auto !important;
   gap: 0 !important;
   min-height: 590px !important;
   padding: 0 !important;
@@ -86,141 +85,140 @@
 .research-orbit::after { display: none !important; }
 
 .orbit-topline {
+  grid-column: 1 !important;
   grid-row: 1 !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px 22px 14px !important;
-  border-bottom: 1px solid var(--line) !important;
-  color: var(--muted) !important;
-  font-size: 9px !important;
-  letter-spacing: .13em !important;
-  text-transform: uppercase !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 24px 26px 20px !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 82%, transparent) !important;
+  text-transform: none !important;
 }
 .orbit-topline span:first-child {
-  color: transparent;
-  font-size: 0;
+  display: block !important;
+  min-width: 0 !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+}
+.orbit-topline span:first-child::before {
+  content: "RESEARCH MAP" !important;
+  display: block !important;
+  margin-bottom: 7px !important;
+  color: var(--accent-2) !important;
+  font-size: 8.5px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: .16em !important;
+  text-transform: uppercase !important;
 }
 .orbit-topline span:first-child::after {
-  content: "Research map · how my work connects";
-  color: var(--ink);
-  font-size: 10px;
-  font-weight: 750;
-  letter-spacing: .11em;
+  content: "How my work connects" !important;
+  display: block !important;
+  color: var(--ink) !important;
+  font-size: clamp(18px, 2vw, 23px) !important;
+  font-weight: 720 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.035em !important;
+  text-transform: none !important;
+  white-space: normal !important;
+}
+.orbit-topline .mono {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 76px !important;
+  padding: 8px 10px !important;
+  border: 1px solid color-mix(in srgb, var(--line) 92%, transparent) !important;
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--surface) 88%, var(--accent-soft)) !important;
+  color: var(--muted) !important;
+  font-size: 8.5px !important;
+  font-weight: 720 !important;
+  line-height: 1 !important;
+  letter-spacing: .13em !important;
+  white-space: nowrap !important;
 }
 
-.profile-badge {
-  grid-row: 2 !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-self: stretch !important;
-  gap: 12px !important;
-  width: auto !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 15px 22px 10px !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-.profile-badge img {
-  width: 54px !important;
-  height: 54px !important;
-  aspect-ratio: 1 !important;
-  object-fit: cover !important;
-  object-position: 50% 18% !important;
-  border-radius: 50% !important;
-  border: 2px solid var(--surface) !important;
-  box-shadow: 0 6px 17px rgba(10,27,48,.12), 0 0 0 1px var(--line) !important;
-  filter: saturate(.94) !important;
-}
-.profile-badge div {
-  display: grid !important;
-  gap: 2px !important;
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-}
-.profile-badge strong {
-  font-size: 12px !important;
-  font-weight: 720 !important;
-  color: var(--ink) !important;
-}
-.profile-badge span {
-  display: block !important;
-  margin: 0 !important;
-  color: var(--muted) !important;
-  font-size: 9px !important;
-  letter-spacing: .02em !important;
-}
-.profile-badge span::after {
-  content: " · PhD-oriented research trajectory";
-  color: var(--accent-2);
+/* Remove the redundant second portrait inside the research map. */
+.research-orbit .profile-badge {
+  display: none !important;
 }
 
 #constellation {
-  grid-row: 3 !important;
-  width: min(100%, 500px) !important;
-  max-width: 500px !important;
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  align-self: center !important;
+  justify-self: center !important;
+  width: min(94%, 560px) !important;
+  max-width: 560px !important;
   height: auto !important;
-  margin: -14px auto -12px !important;
-  padding: 0 12px !important;
+  margin: 6px auto 0 !important;
+  padding: 8px 18px !important;
+  overflow: visible !important;
   opacity: 1 !important;
   filter: none !important;
 }
 .orbit-ring {
-  stroke: color-mix(in srgb, var(--accent) 20%, var(--line)) !important;
-  opacity: .75 !important;
+  stroke: color-mix(in srgb, var(--accent) 27%, var(--line)) !important;
+  opacity: .72 !important;
   stroke-dasharray: 3 8 !important;
 }
 .edges line {
-  stroke: color-mix(in srgb, var(--accent) 44%, var(--line)) !important;
-  stroke-width: 1.5 !important;
-  opacity: .62 !important;
+  stroke: color-mix(in srgb, var(--accent) 48%, var(--line)) !important;
+  stroke-width: 1.7 !important;
+  opacity: .7 !important;
 }
 .topic-node circle {
-  fill: color-mix(in srgb, var(--surface) 95%, var(--accent-soft)) !important;
-  stroke: color-mix(in srgb, var(--accent) 60%, var(--line)) !important;
-  stroke-width: 1.5 !important;
+  fill: color-mix(in srgb, var(--surface) 92%, var(--accent-soft)) !important;
+  stroke: color-mix(in srgb, var(--accent) 72%, var(--line)) !important;
+  stroke-width: 1.7 !important;
   filter: drop-shadow(0 6px 14px rgba(25,74,145,.10)) !important;
 }
 .node-core circle {
-  fill: color-mix(in srgb, var(--surface) 82%, var(--accent-soft)) !important;
+  fill: color-mix(in srgb, var(--surface) 78%, var(--accent-soft)) !important;
   stroke: var(--accent) !important;
-  stroke-width: 2 !important;
+  stroke-width: 2.1 !important;
 }
 .topic-node text {
   fill: var(--ink) !important;
-  font-size: 11px !important;
+  font-size: 11.5px !important;
   font-weight: 820 !important;
   letter-spacing: .06em !important;
 }
 .topic-node .node-small {
   fill: var(--muted) !important;
   font-size: 8px !important;
-  font-weight: 650 !important;
+  font-weight: 620 !important;
   letter-spacing: 0 !important;
 }
 .node-core text { font-size: 12px !important; }
 .node-core .node-small { font-size: 8px !important; }
 
 .orbit-caption {
-  grid-row: 4 !important;
+  grid-column: 1 !important;
+  grid-row: 3 !important;
   display: grid !important;
-  grid-template-columns: auto 1fr !important;
-  gap: 12px !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  gap: 14px !important;
   align-items: start !important;
-  padding: 15px 22px 20px !important;
-  border-top: 1px solid var(--line) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 17px 26px 22px !important;
+  border-top: 1px solid color-mix(in srgb, var(--line) 82%, transparent) !important;
+  background: color-mix(in srgb, var(--surface) 96%, transparent) !important;
 }
 .orbit-caption span {
   display: inline-grid !important;
   place-items: center;
-  min-width: 31px;
-  height: 24px;
-  border-radius: 8px;
+  min-width: 34px !important;
+  height: 25px !important;
+  border-radius: 8px !important;
   background: var(--accent-soft);
   color: var(--accent) !important;
   font-size: 9px !important;
@@ -234,12 +232,11 @@
   font-size: 0 !important;
 }
 .orbit-caption p::after {
-  content: "Five connected directions define my research profile: trustworthy ML, multimodal perception, intelligent sensing, reliable systems, and human-centred applications. The shared objective is dependable machine intelligence for real-world settings.";
+  content: "The map shows the common thread across my work: trustworthy learning, perception, sensing, systems, and human-centred applications all converge on reliable machine intelligence for real-world environments." !important;
   display: block;
-  color: var(--muted);
-  font-size: 10.5px;
-  line-height: 1.55;
-  letter-spacing: 0;
+  color: var(--muted) !important;
+  font-size: 10.5px !important;
+  line-height: 1.6 !important;
 }
 
 /* ---------------- Footer ---------------- */
@@ -300,19 +297,39 @@
 .dtw-figure-label { fill:#6c43a4; font:700 9px "Segoe UI",sans-serif; }
 .dtw-paper-visual { display:none !important; }
 
+html[data-theme="dark"] .orbit-topline .mono {
+  background: rgba(255,255,255,.035) !important;
+  border-color: rgba(151,176,211,.16) !important;
+}
+html[data-theme="dark"] .orbit-caption {
+  background: rgba(255,255,255,.018) !important;
+}
+
 @media (max-width:1050px) {
-  .research-orbit { min-height:560px !important; }
-  #constellation { max-width:480px !important; }
+  .research-orbit { min-height:550px !important; }
+  #constellation { width:min(92%,535px) !important; }
 }
 @media (max-width:900px) {
   .dtw-paper-artifact { grid-template-columns:1fr; }
 }
 @media (max-width:780px) {
   .research-orbit { min-height:0 !important; border-radius:22px !important; }
-  .profile-badge { padding:14px 16px 6px !important; }
-  .orbit-topline { padding:17px 16px 12px !important; }
-  #constellation { max-width:430px !important; margin:-10px auto !important; }
-  .orbit-caption { padding:13px 16px 17px !important; }
+  .orbit-topline {
+    gap:14px !important;
+    padding:19px 18px 16px !important;
+  }
+  .orbit-topline span:first-child::after { font-size:18px !important; }
+  .orbit-topline .mono {
+    min-width:auto !important;
+    padding:7px 9px !important;
+    font-size:8px !important;
+  }
+  #constellation {
+    width:min(100%,470px) !important;
+    padding:8px !important;
+    margin-top:0 !important;
+  }
+  .orbit-caption { padding:14px 18px 18px !important; }
   .topic-node text { font-size:10px !important; }
   .topic-node .node-small { font-size:7px !important; }
 }
@@ -323,10 +340,10 @@
   .brand-mark { width:40px !important; height:40px !important; flex-basis:40px !important; }
   .brand-copy strong { font-size:12.5px; }
   .brand-copy small::before { font-size:8px; }
-  .profile-badge img { width:46px !important; height:46px !important; }
-  .profile-badge span::after { content:""; }
-  #constellation { max-width:360px !important; padding:0 !important; }
-  .orbit-caption { grid-template-columns:1fr !important; }
+  .orbit-topline { grid-template-columns:1fr !important; gap:11px !important; }
+  .orbit-topline .mono { justify-self:start !important; }
+  #constellation { width:100% !important; padding:4px 0 !important; }
+  .orbit-caption { grid-template-columns:1fr !important; gap:8px !important; }
   .footer-grid { grid-template-columns:1fr !important; gap:16px !important; align-items:start !important; }
   .footer-grid > a[href="#top"] { width:fit-content; }
 }
