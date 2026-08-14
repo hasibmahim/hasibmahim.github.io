@@ -8,6 +8,61 @@
     document.head.appendChild(extraStyles);
   }
 
+  // Add the requested links to the thesis metadata cards.
+  if (!document.getElementById('thesis-meta-link-styles')) {
+    const linkStyles = document.createElement('style');
+    linkStyles.id = 'thesis-meta-link-styles';
+    linkStyles.textContent = `
+      .thesis-meta a { color: inherit; text-decoration: none; }
+      .thesis-meta a strong { transition: color .18s ease; }
+      .thesis-meta a:hover strong,
+      .thesis-meta a:focus-visible strong { color: var(--accent); }
+      .thesis-meta a strong::after { content: ' ↗'; color: var(--accent); font-size: .78em; }
+    `;
+    document.head.appendChild(linkStyles);
+  }
+
+  const thesisLinks = {
+    'Institution': 'https://www.oulu.fi/fi',
+    'Dataset': 'https://gitlab.com/felix134/connected-recipe-data-set'
+  };
+
+  document.querySelectorAll('.thesis-meta > div').forEach((card) => {
+    const label = card.querySelector('span')?.textContent.trim();
+    const strong = card.querySelector('strong');
+    if (!label || !strong || strong.closest('a')) return;
+
+    if (thesisLinks[label]) {
+      const link = document.createElement('a');
+      link.href = thesisLinks[label];
+      link.target = '_blank';
+      link.rel = 'noopener';
+      strong.replaceWith(link);
+      link.appendChild(strong);
+      return;
+    }
+
+    if (label === 'Supervisors') {
+      const supervisorLinks = [
+        ['Prof. Mourad Oussalah', 'https://www.researchgate.net/profile/Mourad-Oussalah-2'],
+        ['Dr. Mehrdad Rostami', 'https://www.researchgate.net/profile/Mehrdad-Rostami-4']
+      ];
+      strong.textContent = '';
+      supervisorLinks.forEach(([name, href], index) => {
+        const link = document.createElement('a');
+        link.href = href;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        const nameStrong = document.createElement('strong');
+        nameStrong.textContent = name;
+        link.appendChild(nameStrong);
+        strong.appendChild(link);
+        if (index === 0) strong.appendChild(document.createTextNode(' · '));
+      });
+      strong.style.display = 'block';
+    }
+  });
+
   const root = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const menuToggle = document.getElementById('menuToggle');
