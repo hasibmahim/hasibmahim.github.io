@@ -223,51 +223,23 @@
         <div class="dtw-joint-figure" aria-label="Stylized Kinect body-joint map inspired by the rehabilitation study">
           <svg viewBox="0 0 520 260" role="img" aria-label="Human body with Kinect-style tracked joints and numbered callouts">
             <text x="14" y="20" class="dtw-figure-label">KINECT V2 · BODY JOINT MAP</text>
-
-            <!-- soft body silhouette -->
             <circle cx="262" cy="45" r="24" class="dtw-body-fill"/>
             <path d="M245 67 Q262 57 279 67 L292 130 Q296 157 287 190 L281 237 L263 237 L257 157 L252 237 L234 237 L230 188 Q221 157 232 129 Z" class="dtw-body-fill"/>
             <path d="M235 82 L201 113 L192 168" class="dtw-body-line"/>
             <path d="M287 82 L322 112 L331 168" class="dtw-body-line"/>
-
-            <!-- tracked skeleton -->
             <path class="dtw-skeleton" d="M262 44 L262 68 L262 87 L262 111 L262 139 L240 139 L233 169 L238 221"/>
             <path class="dtw-skeleton" d="M262 139 L284 139 L291 169 L286 221"/>
             <path class="dtw-skeleton" d="M262 87 L229 91 L209 112 L202 153 L196 177"/>
             <path class="dtw-skeleton" d="M262 87 L295 91 L315 112 L323 153 L330 177"/>
             <path class="dtw-skeleton" d="M196 177 L188 186 L194 193 L201 184"/>
             <path class="dtw-skeleton" d="M330 177 L338 186 L332 193 L325 184"/>
-
-            <!-- joints -->
             <g>
-              <circle cx="262" cy="44" r="5.2" class="dtw-joint"/>
-              <circle cx="262" cy="68" r="4.2" class="dtw-joint"/>
-              <circle cx="262" cy="87" r="4.2" class="dtw-joint"/>
-              <circle cx="262" cy="111" r="4.2" class="dtw-joint"/>
-              <circle cx="262" cy="139" r="4.5" class="dtw-joint"/>
-              <circle cx="229" cy="91" r="4.2" class="dtw-joint"/>
-              <circle cx="209" cy="112" r="4.2" class="dtw-joint"/>
-              <circle cx="202" cy="153" r="4.2" class="dtw-joint"/>
-              <circle cx="196" cy="177" r="4.2" class="dtw-joint"/>
-              <circle cx="295" cy="91" r="4.2" class="dtw-joint"/>
-              <circle cx="315" cy="112" r="4.2" class="dtw-joint"/>
-              <circle cx="323" cy="153" r="4.2" class="dtw-joint"/>
-              <circle cx="330" cy="177" r="4.2" class="dtw-joint"/>
-              <circle cx="240" cy="139" r="4.2" class="dtw-joint"/>
-              <circle cx="233" cy="169" r="4.2" class="dtw-joint"/>
-              <circle cx="238" cy="221" r="4.2" class="dtw-joint"/>
-              <circle cx="284" cy="139" r="4.2" class="dtw-joint"/>
-              <circle cx="291" cy="169" r="4.2" class="dtw-joint"/>
-              <circle cx="286" cy="221" r="4.2" class="dtw-joint"/>
-              <circle cx="188" cy="186" r="3.7" class="dtw-joint"/>
-              <circle cx="194" cy="193" r="3.7" class="dtw-joint"/>
-              <circle cx="201" cy="184" r="3.7" class="dtw-joint"/>
-              <circle cx="338" cy="186" r="3.7" class="dtw-joint"/>
-              <circle cx="332" cy="193" r="3.7" class="dtw-joint"/>
-              <circle cx="325" cy="184" r="3.7" class="dtw-joint"/>
+              <circle cx="262" cy="44" r="5.2" class="dtw-joint"/><circle cx="262" cy="68" r="4.2" class="dtw-joint"/><circle cx="262" cy="87" r="4.2" class="dtw-joint"/><circle cx="262" cy="111" r="4.2" class="dtw-joint"/><circle cx="262" cy="139" r="4.5" class="dtw-joint"/>
+              <circle cx="229" cy="91" r="4.2" class="dtw-joint"/><circle cx="209" cy="112" r="4.2" class="dtw-joint"/><circle cx="202" cy="153" r="4.2" class="dtw-joint"/><circle cx="196" cy="177" r="4.2" class="dtw-joint"/>
+              <circle cx="295" cy="91" r="4.2" class="dtw-joint"/><circle cx="315" cy="112" r="4.2" class="dtw-joint"/><circle cx="323" cy="153" r="4.2" class="dtw-joint"/><circle cx="330" cy="177" r="4.2" class="dtw-joint"/>
+              <circle cx="240" cy="139" r="4.2" class="dtw-joint"/><circle cx="233" cy="169" r="4.2" class="dtw-joint"/><circle cx="238" cy="221" r="4.2" class="dtw-joint"/><circle cx="284" cy="139" r="4.2" class="dtw-joint"/><circle cx="291" cy="169" r="4.2" class="dtw-joint"/><circle cx="286" cy="221" r="4.2" class="dtw-joint"/>
+              <circle cx="188" cy="186" r="3.7" class="dtw-joint"/><circle cx="194" cy="193" r="3.7" class="dtw-joint"/><circle cx="201" cy="184" r="3.7" class="dtw-joint"/><circle cx="338" cy="186" r="3.7" class="dtw-joint"/><circle cx="332" cy="193" r="3.7" class="dtw-joint"/><circle cx="325" cy="184" r="3.7" class="dtw-joint"/>
             </g>
-
-            <!-- left callouts -->
             <path class="dtw-callout" d="M246 44 L214 28 L126 28"/><text x="109" y="32" class="dtw-number">3</text>
             <path class="dtw-callout" d="M253 68 L218 59 L112 59"/><text x="91" y="63" class="dtw-number">20</text>
             <path class="dtw-callout" d="M229 91 L191 91 L119 91"/><text x="102" y="95" class="dtw-number">8</text>
@@ -275,8 +247,6 @@
             <path class="dtw-callout" d="M196 177 L158 177 L91 177"/><text x="66" y="181" class="dtw-number">10</text>
             <path class="dtw-callout" d="M188 186 L145 199 L67 199"/><text x="45" y="203" class="dtw-number">11</text>
             <path class="dtw-callout" d="M233 169 L183 222 L106 222"/><text x="86" y="226" class="dtw-number">17</text>
-
-            <!-- right callouts -->
             <path class="dtw-callout" d="M271 68 L305 69 L396 69"/><text x="407" y="73" class="dtw-number">2</text>
             <path class="dtw-callout" d="M295 91 L337 91 L423 91"/><text x="434" y="95" class="dtw-number">4</text>
             <path class="dtw-callout" d="M315 112 L353 122 L435 122"/><text x="446" y="126" class="dtw-number">5</text>
@@ -290,9 +260,7 @@
           <span class="dtw-artifact-eyebrow">Research paper · Rehabilitation analytics</span>
           <h4>From tracked joints to a clinically useful similarity score.</h4>
           <p>Kinect V2 records body-joint trajectories as time series. Multidimensional DTW then aligns a patient's motion with the physiotherapist's reference even when the same exercise is performed at a different speed.</p>
-          <div class="dtw-flow" aria-label="DTW research workflow">
-            <span>25 joints</span><b>→</b><span>trajectory</span><b>→</b><span>DTW alignment</span><b>→</b><span>similarity score</span>
-          </div>
+          <div class="dtw-flow" aria-label="DTW research workflow"><span>25 joints</span><b>→</b><span>trajectory</span><b>→</b><span>DTW alignment</span><b>→</b><span>similarity score</span></div>
           <a class="dtw-paper-link" href="https://drive.google.com/file/d/1rttfWGXSKGSkScGVgmhZBaLeX-CJCNPP/view?usp=sharing" target="_blank" rel="noopener">Read the paper ↗</a>
         </div>
       `;
@@ -345,45 +313,85 @@
 
   /* ----------------------------------------------------------
      Header state, progress, active section
+     Deterministic scroll-spy: use one viewport marker rather than
+     IntersectionObserver callback batches. This prevents a previous
+     section (especially About) from keeping the underline while the
+     Research section is already active.
   ---------------------------------------------------------- */
   const navLinks = [...document.querySelectorAll('.desktop-nav a[href^="#"], .mobile-nav a[href^="#"]')];
-  const sections = [...document.querySelectorAll('main section[id]')];
+  const sectionIds = [...new Set(navLinks
+    .map((link) => link.getAttribute('href')?.slice(1))
+    .filter(Boolean))];
+  const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+
+  const setActiveSection = (id) => {
+    if (!id) return;
+    const hash = `#${id}`;
+    navLinks.forEach((link) => {
+      const active = link.getAttribute('href') === hash;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  };
+
+  let navClickLockUntil = 0;
+  let navRaf = 0;
+
+  const findActiveSection = () => {
+    if (!sections.length) return null;
+
+    const y = window.scrollY || document.documentElement.scrollTop;
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    if (y >= max - 4) return sections[sections.length - 1].id;
+
+    const headerHeight = header?.getBoundingClientRect().height || 0;
+    const marker = headerHeight + Math.min(110, Math.max(64, window.innerHeight * 0.16));
+
+    let active = sections[0].id;
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= marker) active = section.id;
+      else break;
+    }
+    return active;
+  };
 
   const updateScrollUI = () => {
+    navRaf = 0;
     const y = window.scrollY || document.documentElement.scrollTop;
     header?.classList.toggle('is-scrolled', y > 10);
 
     const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const progress = Math.min(1, Math.max(0, y / max));
     header?.style.setProperty('--page-progress', progress.toFixed(4));
+
+    if (performance.now() >= navClickLockUntil) {
+      setActiveSection(findActiveSection());
+    }
   };
 
-  updateScrollUI();
-  window.addEventListener('scroll', updateScrollUI, { passive: true });
-  window.addEventListener('resize', updateScrollUI, { passive: true });
+  const scheduleScrollUI = () => {
+    if (navRaf) return;
+    navRaf = requestAnimationFrame(updateScrollUI);
+  };
 
-  if ('IntersectionObserver' in window && sections.length) {
-    const activeObserver = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-      if (!visible?.target?.id) return;
-      const hash = `#${visible.target.id}`;
-
-      navLinks.forEach((link) => {
-        const active = link.getAttribute('href') === hash;
-        link.classList.toggle('active', active);
-        if (active) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
-      });
-    }, {
-      rootMargin: '-27% 0px -58% 0px',
-      threshold: [0, .12, .3, .55]
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      const id = link.getAttribute('href')?.slice(1);
+      if (!id) return;
+      setActiveSection(id);
+      navClickLockUntil = performance.now() + (reduceMotion ? 120 : 850);
     });
+  });
 
-    sections.forEach((section) => activeObserver.observe(section));
-  }
+  updateScrollUI();
+  window.addEventListener('scroll', scheduleScrollUI, { passive: true });
+  window.addEventListener('resize', scheduleScrollUI, { passive: true });
+  window.addEventListener('hashchange', () => {
+    const id = location.hash.slice(1);
+    if (sectionIds.includes(id)) setActiveSection(id);
+    scheduleScrollUI();
+  });
 
   /* ----------------------------------------------------------
      Back to top — force actual page-top behavior
@@ -391,14 +399,8 @@
   document.querySelectorAll('a[href="#top"]').forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: reduceMotion ? 'auto' : 'smooth'
-      });
-      if (history.replaceState) {
-        history.replaceState(null, '', `${location.pathname}${location.search}`);
-      }
+      window.scrollTo({ top: 0, left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      if (history.replaceState) history.replaceState(null, '', `${location.pathname}${location.search}`);
     });
   });
 
