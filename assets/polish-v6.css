@@ -1,7 +1,93 @@
 /* ==========================================================
    V6 — Final visual cleanup
-   Focus: research-artifact cards, footer, and interaction polish.
+   Focus: research-artifact cards, footer, interaction polish,
+   and a calmer academic wordmark.
    ========================================================== */
+
+/* ----------------------------------------------------------
+   Header brand / wordmark
+   ---------------------------------------------------------- */
+.brand {
+  min-width: 0;
+  gap: 12px;
+  padding: 5px 7px 5px 5px;
+  border-radius: 12px;
+}
+
+.brand-mark {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, var(--line));
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--surface) 96%, var(--accent-soft));
+  color: var(--ink);
+  box-shadow: none;
+  font-size: 10.5px;
+  font-weight: 780;
+  letter-spacing: -.04em;
+}
+
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-2) 12%, transparent);
+}
+
+.brand-copy {
+  gap: 1px;
+}
+
+.brand-copy strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 720;
+  letter-spacing: -.025em;
+  line-height: 1.15;
+}
+
+.brand-copy small {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 14px;
+  overflow: visible;
+  margin-top: 2px;
+  color: transparent;
+  font-size: 0;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.brand-copy small::before {
+  content: "MSc Researcher · University of Oulu";
+  display: block;
+  width: max-content;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 590;
+  letter-spacing: .025em;
+  line-height: 1.2;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.brand:hover .brand-mark {
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+  background: var(--surface);
+}
+
+html[data-theme="dark"] .brand-mark {
+  border-color: color-mix(in srgb, var(--ink) 20%, var(--line));
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+}
 
 /* Footer: remove the redundant middle sentence and use the space intentionally. */
 .footer-note { display: none !important; }
@@ -169,6 +255,11 @@ html[data-theme="dark"] .dtw-joint-figure {
 @media (max-width: 780px) {
   .footer-grid { grid-template-columns: 1fr auto !important; }
   .dtw-paper-artifact { padding: 17px; }
+  .brand-copy small::before { font-size: 8.5px; }
+}
+
+@media (max-width: 620px) {
+  .brand-copy small::before { content: "MSc Researcher · Oulu"; }
 }
 
 @media (max-width: 520px) {
@@ -181,4 +272,11 @@ html[data-theme="dark"] .dtw-joint-figure {
   .dtw-joint-figure { min-height: 205px; }
   .dtw-joint-figure svg { height: 195px; }
   .dtw-artifact-copy h4 { font-size: 18px; }
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+  .brand-copy strong { font-size: 12.5px; }
+  .brand-copy small::before { font-size: 8px; }
 }
