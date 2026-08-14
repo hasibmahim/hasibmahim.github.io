@@ -1,0 +1,452 @@
+/* ==========================================================
+   V5 — Finishing polish
+   Small, intentional refinements on top of the V4 design.
+   ========================================================== */
+
+/* More consistent rhythm and optical alignment */
+:root {
+  --focus-ring: color-mix(in srgb, var(--accent) 38%, transparent);
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+.site-header {
+  transition: box-shadow .24s ease, border-color .24s ease, background-color .24s ease;
+}
+
+.site-header.is-scrolled {
+  box-shadow: 0 8px 30px rgba(9, 24, 48, .07);
+  border-bottom-color: color-mix(in srgb, var(--line) 90%, transparent);
+}
+
+html[data-theme="dark"] .site-header.is-scrolled {
+  box-shadow: 0 10px 30px rgba(0,0,0,.23);
+}
+
+/* Ultra-subtle reading progress line */
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(var(--page-progress, 0));
+  transform-origin: left center;
+  opacity: .68;
+  pointer-events: none;
+}
+
+/* Navigation should clearly communicate where the reader is */
+.desktop-nav a,
+.mobile-nav a {
+  transition: color .2s ease, opacity .2s ease;
+}
+
+.desktop-nav a.active {
+  color: var(--ink);
+}
+
+.desktop-nav a.active::after {
+  transform: scaleX(1);
+}
+
+.mobile-nav a.active {
+  color: var(--accent);
+}
+
+/* Brand feels clickable without becoming button-like */
+.brand {
+  border-radius: 14px;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.brand:hover {
+  transform: translateY(-1px);
+}
+
+.brand:active {
+  transform: translateY(0);
+}
+
+/* Theme button feedback */
+#themeToggle {
+  position: relative;
+}
+
+#themeToggle::after {
+  content: attr(data-theme-label);
+  position: absolute;
+  top: calc(100% + 9px);
+  right: 0;
+  width: max-content;
+  max-width: 130px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  box-shadow: var(--shadow-sm);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: .02em;
+  opacity: 0;
+  transform: translateY(-3px);
+  pointer-events: none;
+  transition: opacity .16s ease, transform .16s ease;
+}
+
+#themeToggle:hover::after,
+#themeToggle:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero: keep the academic statement dominant, with the portrait as identity support */
+.hero-copy {
+  align-self: center;
+}
+
+.hero h1 {
+  text-wrap: balance;
+}
+
+.hero-lead,
+.hero-note,
+.section-title-row p,
+.prose p,
+.project-body p,
+.thesis-card p,
+.publication-main p {
+  text-wrap: pretty;
+}
+
+.research-orbit {
+  min-height: 548px;
+  grid-template-columns: minmax(198px, .78fr) minmax(270px, 1.22fr);
+}
+
+.profile-badge {
+  max-width: 220px;
+  justify-self: center;
+}
+
+.profile-badge img {
+  aspect-ratio: 1 / 1.17;
+  max-height: 258px;
+  object-position: 50% 17%;
+  filter: saturate(.91) contrast(1.01);
+  border-radius: 19px;
+}
+
+.profile-badge div {
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+}
+
+.profile-badge strong {
+  font-weight: 730;
+}
+
+#constellation {
+  max-width: 355px;
+  justify-self: center;
+}
+
+.orbit-caption p {
+  max-width: 430px;
+}
+
+/* Make the quick thesis card read as a deliberate academic callout */
+.current-thesis-link {
+  border-left: 2px solid var(--accent);
+}
+
+.current-thesis-link:hover {
+  box-shadow: 0 12px 28px rgba(16,35,58,.065);
+}
+
+/* Section entry points: cleaner visual cadence */
+.section-title-row,
+.two-col,
+.thesis-header {
+  position: relative;
+}
+
+.section-title-row::before,
+.two-col::before {
+  content: "";
+  position: absolute;
+  top: -32px;
+  left: 0;
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  opacity: .75;
+}
+
+/* Research cards: stronger hierarchy, less dashboard-like */
+.research-card {
+  isolation: isolate;
+}
+
+.research-card h3 {
+  max-width: 470px;
+}
+
+.research-card p {
+  max-width: 530px;
+}
+
+.research-card:hover .research-icon {
+  transform: translateY(-2px);
+}
+
+.research-icon {
+  transition: transform .2s ease;
+}
+
+/* Thesis remains the site's visual anchor */
+.thesis-section {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.02), inset 0 -1px 0 rgba(255,255,255,.02);
+}
+
+.thesis-header {
+  margin-bottom: 40px;
+}
+
+.thesis-header h2 {
+  text-wrap: balance;
+}
+
+.thesis-meta div {
+  transition: border-color .2s ease, background-color .2s ease, transform .2s ease;
+}
+
+.thesis-meta div:hover {
+  transform: translateY(-2px);
+  border-color: rgba(114,177,255,.31);
+  background: rgba(255,255,255,.07);
+}
+
+.thesis-hero-card {
+  border-radius: 24px;
+}
+
+.thesis-card {
+  border-radius: 18px;
+}
+
+/* Projects: every project should read like a research artifact, not a generic portfolio item */
+.project-card {
+  position: relative;
+  overflow: clip;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+.project-card:hover::before {
+  opacity: .72;
+}
+
+.project-meta {
+  position: relative;
+  z-index: 1;
+}
+
+.project-year {
+  font-weight: 760;
+}
+
+/* Figma figure: paper-like framing and a calmer footprint */
+.ssl-df-outline-frame {
+  height: clamp(410px, 44vw, 570px) !important;
+  background: #fff !important;
+}
+
+.ssl-df-outline-caption {
+  border-top: 0;
+}
+
+.ssl-df-outline-caption strong {
+  font-size: 12.5px !important;
+}
+
+/* DTW visual is a supporting figure, not the whole card */
+.dtw-paper-visual {
+  min-height: 230px;
+  grid-template-columns: minmax(220px, .84fr) minmax(300px, 1.16fr);
+}
+
+.dtw-motion-mark {
+  max-height: 235px;
+}
+
+/* Publication card gets a slightly more journal-like feel */
+.publication-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.publication-card::after {
+  content: "IEEE · I2CT · 2024";
+  position: absolute;
+  right: 30px;
+  top: 22px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 8px;
+  letter-spacing: .14em;
+  opacity: .45;
+}
+
+.publication-main h2 {
+  text-wrap: balance;
+}
+
+/* Timeline details */
+.timeline-content h3 {
+  text-wrap: balance;
+}
+
+.timeline-marker::before {
+  transition: transform .18s ease, border-color .18s ease;
+}
+
+.timeline-item:hover .timeline-marker::before {
+  transform: scale(1.18);
+  border-color: var(--accent-2);
+}
+
+/* Toolkit: give key methods a slightly stronger typographic hierarchy */
+.tool-cloud {
+  align-content: flex-start;
+}
+
+.tool {
+  transition: border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.tool:hover {
+  transform: translateY(-1px);
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 25%, var(--line));
+}
+
+/* Contact ending should feel intentional and spacious */
+.contact-card {
+  min-height: 355px;
+}
+
+.contact-links a {
+  transition: color .18s ease;
+}
+
+/* Footer */
+.site-footer {
+  padding-bottom: 42px;
+}
+
+.footer-grid {
+  align-items: center;
+}
+
+.footer-note {
+  line-height: 1.55;
+}
+
+.footer-copyright {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: .04em;
+}
+
+/* Refined selection and focus */
+::selection {
+  background: color-mix(in srgb, var(--accent) 24%, transparent);
+  color: var(--ink);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline-color: var(--focus-ring);
+}
+
+/* Better hover behavior only on devices that actually hover */
+@media (hover: none) {
+  .research-card:hover,
+  .project-card:hover,
+  .thesis-meta div:hover,
+  .tool:hover,
+  .brand:hover {
+    transform: none;
+  }
+  .project-card::before {
+    opacity: .34;
+  }
+}
+
+@media (max-width: 1050px) {
+  .research-orbit {
+    min-height: 520px;
+    grid-template-columns: minmax(190px, .7fr) minmax(290px, 1.3fr);
+  }
+  .profile-badge { max-width: 210px; }
+  #constellation { max-width: 360px; }
+}
+
+@media (max-width: 780px) {
+  .section-title-row::before,
+  .two-col::before {
+    top: -24px;
+  }
+  .research-orbit {
+    min-height: 0;
+    grid-template-columns: 120px 1fr;
+  }
+  .profile-badge { max-width: 120px; }
+  .profile-badge img {
+    max-height: none;
+    aspect-ratio: 1 / 1.18;
+  }
+  #constellation { max-width: 390px; }
+  .ssl-df-outline-frame { height: 455px !important; }
+  .dtw-paper-visual { grid-template-columns: 1fr; }
+  .publication-card::after { display: none; }
+}
+
+@media (max-width: 520px) {
+  .research-orbit {
+    grid-template-columns: 98px 1fr;
+  }
+  .profile-badge { max-width: 98px; }
+  .ssl-df-outline-frame { height: 390px !important; }
+  .current-thesis-link {
+    border-left-width: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .brand,
+  .research-icon,
+  .thesis-meta div,
+  .timeline-marker::before,
+  .tool {
+    transition: none !important;
+  }
+}
