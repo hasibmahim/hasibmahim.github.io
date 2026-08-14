@@ -28,6 +28,23 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Build and verify Academic CV
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 --decode assets/Syed_Amin_Al_Mahim_CV.pdf.b64 > assets/Syed_Amin_Al_Mahim_CV.pdf
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/Syed_Amin_Al_Mahim_CV.pdf')
+          data = p.read_bytes()
+          assert data.startswith(b'%PDF-'), 'Academic CV is missing a PDF header'
+          assert data.rstrip().endswith(b'%%EOF'), 'Academic CV is missing a PDF EOF marker'
+          assert len(data) > 5000, 'Academic CV PDF is unexpectedly small'
+          print(f'Academic CV verified: {len(data)} bytes')
+          PY
+          # The Base64 source is a build input and should not be published.
+          rm -f assets/Syed_Amin_Al_Mahim_CV.pdf.b64 assets/Syed_Amin_Al_Mahim_CV_v2.pdf
+
       - name: Setup Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
